@@ -1,0 +1,162 @@
+html,body{
+	padding: 0;
+	margin;0;	
+}
+
+body{
+	background:#212121;
+	
+}
+p{
+	margin:0;
+}
+h1,h2,h3,h4,h5,h6{
+	margin:5px 0;
+}
+
+/*header*/
+.header{
+	
+	background-image: url('images/foot1.png');
+	
+	min-height: 50px;
+	border-radius : 5px;	
+	
+}
+
+img.adminLogo:hover{
+	opacity: 1;
+	
+}
+/*end header*/
+
+
+/*contents*/
+.contents{
+	background: #FBF9EE;
+	min-height: 550px;
+	padding-left: 5px;
+}
+
+.ui-accordion .ui-accordion-content {
+  margin: 0;
+  overflow: inherit;
+  padding: 0;
+  position: relative;
+}
+
+#accordion .sf-menu {
+  width: 100%;
+}
+
+#accordion .sf-menu li a{
+
+  color:#000000;
+}
+
+.isi{
+	float: left;
+	width: 740px;
+}
+
+.isi input[type='text']{
+	width: 300px;
+	padding: 7px;
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+	border-radius: 3px;
+}
+
+.isi textarea{
+	width: 400px;
+	height: 150px;
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+	border-radius: 3px;
+}
+
+
+.themes .themebox {
+    background: none repeat scroll 0 0 rgb(246, 244, 241);
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    border-radius: 2px;
+    color: rgb(51, 51, 51);
+    float: left;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    margin-right: 4px;
+    padding: 10px;
+    width: 210px;
+    height: 220px;
+    position: relative;
+}
+.themes .themebox img {
+    border: 1px solid rgb(102, 102, 102);
+    height: auto;
+    max-height: 140px;
+    width: 100%;
+}
+.themebox h3 {
+    margin: 10px 0 15px;
+}
+
+.mediacontainer{
+	list-style: none;
+}
+.mediacontainer li{
+	border: 2px solid rgb(255, 255, 255,0.7);
+	float: left;
+	width: 100px;
+	margin-right: 10px;
+	padding: 5px;
+}
+.mediacontainer .selectit{
+	margin-left: 23px;
+}
+
+.infomedia{
+	margin-top: 20px;
+	position: relative;
+}
+
+.removemedia{
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+/*end contents*/
+
+
+
+
+/*footer*/
+.footer{
+	background-image: url('images/foot1.png');
+	min-height: 40px;
+}
+/*end footer*/
+
+
+
+	/* -- RESPONSIVE DENGAN MEDIA QUERIES -- */
+	@media screen and (max-width: 1024px) {
+		/* CSS styles */
+		.container,#accordion .sf-menu{
+			width: 100%;
+						
+		}
+		.header{
+			border-radius : 0px;
+					
+		}	
+	}
+	@media screen and (max-width: 768px) {
+		/* CSS styles */
+		.contents {
+			float: none;
+			display: block;
+			width: auto;		
+			
+		}
+		
+		
+	}
+
