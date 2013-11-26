@@ -1,0 +1,286 @@
+-- phpMyAdmin SQL Dump
+-- version 2.10.3
+-- http://www.phpmyadmin.net
+-- 
+-- Host: localhost
+-- Generation Time: Nov 28, 2013 at 08:08 PM
+-- Server version: 5.0.51
+-- PHP Version: 5.2.6
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+-- 
+-- Database: `noterror`
+-- 
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `categories`
+-- 
+
+CREATE TABLE `categories` (
+  `CategoryID` int(11) NOT NULL auto_increment,
+  `CategoryName` varchar(50) NOT NULL,
+  `IsParent` tinyint(1) default NULL,
+  `CategoryURL` varchar(100) NOT NULL,
+  `Description` text,
+  `ViewTypeID` int(11) default NULL,
+  `SidebarRight` int(11) default NULL,
+  `SidebarLeft` int(11) default NULL,
+  `IsSystem` tinyint(1) default '0',
+  PRIMARY KEY  (`CategoryID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+-- 
+-- Dumping data for table `categories`
+-- 
+
+INSERT INTO `categories` VALUES (1, 'test', 0, 'tist', '0', 0, 0, 0, 0);
+INSERT INTO `categories` VALUES (2, 'Bonus', 1, 'bonus', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `categories` VALUES (3, 'Coba', 0, 'coba', '', 0, 0, 0, 0);
+INSERT INTO `categories` VALUES (4, 'Asal aja', 0, 'asal', 'Ini adalah contoh', 0, 0, 0, 0);
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `comments`
+-- 
+
+CREATE TABLE `comments` (
+  `CommentID` int(11) NOT NULL auto_increment,
+  `PostID` int(11) NOT NULL,
+  `Name` varchar(50) NOT NULL,
+  `Email` varchar(25) NOT NULL,
+  `Website` varchar(30) default NULL,
+  `Comment` text NOT NULL,
+  `CommentDate` datetime NOT NULL,
+  PRIMARY KEY  (`CommentID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+-- 
+-- Dumping data for table `comments`
+-- 
+
+INSERT INTO `comments` VALUES (1, 1, 'Tidak Bernama', 'noname@yahoo.com', NULL, 'ini adalah komentar pertama dan percobaan', '2013-11-19 14:15:10');
+INSERT INTO `comments` VALUES (2, 2, 'contoh', 'contoh@ymial.com', 'http/jdjdfjd.com', 'fjdfasfkjaskf', '2013-11-27 00:00:00');
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `media`
+-- 
+
+CREATE TABLE `media` (
+  `MediaID` int(11) NOT NULL auto_increment,
+  `MediaName` varchar(50) NOT NULL,
+  `MediaPath` varchar(100) NOT NULL,
+  `MediaFullPath` varchar(100) NOT NULL,
+  `Description` text,
+  `CreatedBy` varchar(50) default NULL,
+  `CreatedOn` datetime default NULL,
+  `UpdateBy` varchar(50) default NULL,
+  `UpdateOn` datetime default NULL,
+  PRIMARY KEY  (`MediaID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+
+-- 
+-- Dumping data for table `media`
+-- 
+
+INSERT INTO `media` VALUES (1, 'Not Error', 'logo.png', 'http://192.168.137.1/noterror/assets/images/media/logo.png', '', 'admin', '2013-11-27 17:19:16', NULL, NULL);
+INSERT INTO `media` VALUES (3, 'favicon.png', 'favicon.png', 'http://192.168.137.1/noterror/assets/images/media/favicon.png', '', 'admin', '2013-11-28 18:09:24', NULL, NULL);
+INSERT INTO `media` VALUES (4, 'facebook_logo1.png', 'facebook_logo1.png', 'http://192.168.137.1/noterror/assets/images/media/facebook_logo1.png', '', 'admin', '2013-11-28 18:22:18', NULL, NULL);
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `menudetails`
+-- 
+
+CREATE TABLE `menudetails` (
+  `MenuDetailID` int(11) NOT NULL auto_increment,
+  `MenuDetailName` varchar(50) NOT NULL,
+  `MenuID` int(11) NOT NULL,
+  `MenuURL` varchar(100) NOT NULL,
+  `ParentID` int(11) default NULL,
+  `OrderNo` int(11) default NULL,
+  PRIMARY KEY  (`MenuDetailID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- 
+-- Dumping data for table `menudetails`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `menus`
+-- 
+
+CREATE TABLE `menus` (
+  `MenuID` int(11) NOT NULL auto_increment,
+  `MenuTitle` varchar(50) NOT NULL,
+  PRIMARY KEY  (`MenuID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+-- 
+-- Dumping data for table `menus`
+-- 
+
+INSERT INTO `menus` VALUES (2, 'Menu Kedua');
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `pages`
+-- 
+
+CREATE TABLE `pages` (
+  `PageID` int(11) NOT NULL auto_increment,
+  `PageTitle` varchar(50) NOT NULL,
+  `HTML` text NOT NULL,
+  `CSS` text,
+  `Javascript` text,
+  `PageURL` varchar(100) NOT NULL,
+  `ShowTitle` tinyint(1) default '0',
+  `Description` text,
+  `CreatedBy` varchar(30) default NULL,
+  `CreatedOn` datetime default NULL,
+  `UpdateBy` varchar(30) default NULL,
+  `UpdateOn` datetime default NULL,
+  PRIMARY KEY  (`PageID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+
+-- 
+-- Dumping data for table `pages`
+-- 
+
+INSERT INTO `pages` VALUES (1, 'Halaman Pertama', '<h2><span style="color:#0000CD;"><img alt="website" src="http://192.168.137.1/noterror/assets/images/media/logo.png" style="width: 500px; height: 259px; margin: 10px; float: left;" /><br />\r\nHalaman Pertama CMS NotError</span></h2>\r\n\r\n<div style="text-align: justify;">\r\n<div class="xx">Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError.</div>\r\n</div>\r\n\r\n<div><br />\r\nIni adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError.</div>\r\n\r\n<div style="text-align: right;"><br />\r\nIni adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError.<br />\r\n&nbsp;</div>\r\n\r\n<div style="text-align: center;"><br />\r\nIni adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError, Ini adalah sebuah contoh halaman pertama Cms NotError.</div>\r\n', '.xx{\r\n  color : #FF00FF;\r\n}', '', 'halaman-pertama', 0, NULL, '0', '0000-00-00 00:00:00', 'admin', '2013-11-28 18:24:17');
+INSERT INTO `pages` VALUES (2, 'lagi', 'ini hanya kajsdkj a shd', '', '', 'lagi', 0, NULL, 'admin', '2013-11-26 16:36:16', 'admin', '2013-11-26 18:24:42');
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `posts`
+-- 
+
+CREATE TABLE `posts` (
+  `PostID` int(11) NOT NULL auto_increment,
+  `PostTitle` text NOT NULL,
+  `CategoryID` int(11) default NULL,
+  `PostContent` text NOT NULL,
+  `PostDate` datetime NOT NULL,
+  `MediaID` int(11) default NULL,
+  `ViewDetailID` tinyint(1) default NULL,
+  `PostExpired` date default NULL,
+  `Description` text,
+  `ShowComment` tinyint(1) default NULL,
+  `ShowShare` tinyint(1) default NULL,
+  `CreatedBy` varchar(50) default NULL,
+  `CreatedOn` datetime default NULL,
+  `UpdateBy` varchar(50) default NULL,
+  `UpdateOn` datetime default NULL,
+  PRIMARY KEY  (`PostID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+-- 
+-- Dumping data for table `posts`
+-- 
+
+INSERT INTO `posts` VALUES (1, 'Post Pertama', 2, 'Ini adalah Post pertama', '2013-11-26 19:39:11', 0, NULL, '2013-11-29', 'Ini adalah description', 1, 1, NULL, NULL, 'admin', '2013-11-26 19:39:11');
+INSERT INTO `posts` VALUES (2, 'contoh1', NULL, 'ekojelek', '2013-10-23 21:38:10', 0, NULL, '0000-00-00', '', 0, 0, NULL, NULL, '0', '2013-10-23 21:38:10');
+INSERT INTO `posts` VALUES (3, 'setres', NULL, 'rokok mana', '2013-10-23 21:38:19', 0, NULL, '0000-00-00', '', 0, 0, NULL, NULL, '0', '2013-10-23 21:38:19');
+INSERT INTO `posts` VALUES (4, 'ha', NULL, 'k', '2013-10-23 21:38:42', 0, NULL, '0000-00-00', '', 0, 0, NULL, NULL, '0', '2013-10-23 21:38:42');
+INSERT INTO `posts` VALUES (5, 'lagilagi', NULL, 'lagi konken', '2013-10-23 22:33:11', 0, NULL, '0000-00-00', 'des', 1, 1, '0', '2013-10-23 22:33:11', NULL, NULL);
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `settings`
+-- 
+
+CREATE TABLE `settings` (
+  `SettingID` int(11) NOT NULL auto_increment,
+  `SettingName` varchar(50) NOT NULL,
+  `SettingLabel` varchar(50) NOT NULL,
+  `SettingValue` text NOT NULL,
+  `IsGeneral` tinyint(1) NOT NULL,
+  PRIMARY KEY  (`SettingID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+-- 
+-- Dumping data for table `settings`
+-- 
+
+INSERT INTO `settings` VALUES (1, 'HomePageID', 'Home Page ID', '1', 0);
+INSERT INTO `settings` VALUES (2, 'ActiveTheme', 'Active Theme', 'default', 0);
+INSERT INTO `settings` VALUES (3, 'Logo', 'Logo', '1', 0);
+INSERT INTO `settings` VALUES (4, 'Favicon', 'Favicon', '3', 0);
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `users`
+-- 
+
+CREATE TABLE `users` (
+  `UserName` varchar(50) NOT NULL,
+  `Password` varchar(50) NOT NULL,
+  `RoleID` tinyint(4) NOT NULL,
+  `IsSuspend` tinyint(1) default NULL,
+  PRIMARY KEY  (`UserName`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- 
+-- Dumping data for table `users`
+-- 
+
+INSERT INTO `users` VALUES ('admin', '21232f297a57a5a743894a0e4a801fc3', 1, 0);
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `widgetdetails`
+-- 
+
+CREATE TABLE `widgetdetails` (
+  `WidgetDetailID` int(11) NOT NULL auto_increment,
+  `WidgetDetailName` varchar(50) NOT NULL,
+  `WidgetID` int(11) NOT NULL,
+  `Index` int(11) NOT NULL,
+  PRIMARY KEY  (`WidgetDetailID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- 
+-- Dumping data for table `widgetdetails`
+-- 
+
+
+-- --------------------------------------------------------
+
+-- 
+-- Table structure for table `widgets`
+-- 
+
+CREATE TABLE `widgets` (
+  `WidgetID` int(11) NOT NULL auto_increment,
+  `WidgetName` varchar(50) NOT NULL,
+  `Description` text,
+  `CreatedBy` varchar(50) default NULL,
+  `CreatedOn` datetime default NULL,
+  `UpdateBy` varchar(50) default NULL,
+  `UpdateOn` datetime default NULL,
+  `IsShow` tinyint(1) default '0',
+  PRIMARY KEY  (`WidgetID`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+-- 
+-- Dumping data for table `widgets`
+-- 
+
+INSERT INTO `widgets` VALUES (1, '0', 'mcvxmxc,vx', '0', '0000-00-00 00:00:00', NULL, NULL, 0);
+INSERT INTO `widgets` VALUES (2, '0', 'kdfgdfklgjdfklj', '0', '0000-00-00 00:00:00', NULL, NULL, 0);
+INSERT INTO `widgets` VALUES (3, 'ozy', 'bujang', '0', '0000-00-00 00:00:00', NULL, NULL, 0);
+INSERT INTO `widgets` VALUES (4, '2', 'jfkgkjf', '0', '0000-00-00 00:00:00', NULL, NULL, 0);
