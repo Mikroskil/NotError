@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= '';
+$config['base_url']	= 'http://192.168.137.1/noterror/';
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +26,7 @@ $config['base_url']	= '';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ $config['uri_protocol']	= 'AUTO';
 | http://codeigniter.com/user_guide/general/urls.html
 */
 
-$config['url_suffix'] = '';
+$config['url_suffix'] = '.html';
 
 /*
 |--------------------------------------------------------------------------
@@ -224,7 +224,7 @@ $config['cache_path'] = '';
 | MUST set an encryption key.  See the user guide for info.
 |
 */
-$config['encryption_key'] = '';
+$config['encryption_key'] = 'your_encryption_key_here';
 
 /*
 |--------------------------------------------------------------------------
