@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://192.168.137.1/noterror/';
+$config['base_url']	= 'http://localhost/mynoterror/';
 
 /*
 |--------------------------------------------------------------------------

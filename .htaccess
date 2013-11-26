@@ -1,4 +1,4 @@
 RewriteEngine on
-RewriteBase /noterror
+RewriteBase /mynoterror
 RewriteCond $1 !^(index\.php|assets|robots\.txt)
 RewriteRule ^(.*)$ index.php/$1 [L]
