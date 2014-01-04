@@ -197,7 +197,52 @@ class Media extends CI_Controller {
             
             echo json_encode($resp);
     }
-    
+
+        function uploadprofile(){
+            $config['upload_path'] = './assets/images/profile';
+            $config['allowed_types'] = '*';
+            $config['max_size'] = 0;
+            $config['max_width']  = 0;
+            $config['max_height']  = 0;
+            $config['overwrite'] = FALSE;
+            
+            $this->load->library('upload',$config);
+            
+            
+            #echo $config['upload_path'];
+            #return;
+            
+            if(!$this->upload->do_upload()){
+                echo json_encode( array('error'=>$this->upload->display_errors()) );
+                return;
+            }
+            
+            $dataupload = $this->upload->data();
+            
+            $last = $this->mmedia->getlast();
+            
+            $data = array(
+                    'MediaID'       => $last,
+                    'MediaName'     => $dataupload['file_name'],
+                    'MediaPath'     => $dataupload['file_name'],
+                    'MediaFullPath' => base_url().'assets/images/profile/'.$dataupload['file_name'],
+                    'Description'   => "",
+                    'CreatedBy'     => GetAdminLogin('UserName'),
+                    'CreatedOn'     => date('Y-m-d H:i:s')
+            );
+            
+            #$this->mmedia->insert($data);
+            
+            $resp = array(
+                        'mediaid'       => $last,
+                        'mediapath'     => $dataupload['file_name'],
+                        'fullmediapath' => base_url().'assets/images/profile/'.$dataupload['file_name'],
+                        'isimage'       => $dataupload['is_image']
+            );
+            
+            echo json_encode($resp);
+    }
+
     
 //Function for the upload : return true/false
   public function do_upload() {

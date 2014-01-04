@@ -145,8 +145,8 @@
             <h3>Users</h3>
             <div>
                 <ul class="sf-menu sf-vertical">
-                    <li><?=anchor('media', 'All Users')?></li>
-                    <li><?=anchor('media/add', 'Add New User')?></li>
+                    <li><?=anchor('user', 'All Users')?></li>
+                    <li><?=anchor('user/add', 'Add New User')?></li>
                 </ul>
                 <div class="clear"></div>
             </div>
@@ -155,7 +155,7 @@
             <div>
                 <ul class="sf-menu sf-vertical">
                     <li><?=anchor('setting/general', 'General')?></li>
-                    <li><?=anchor('setting/email', 'Email')?></li>
+                    <!-- <li><?=anchor('setting/email', 'Email')?></li> -->
                 </ul>
                 <div class="clear"></div>
             </div>

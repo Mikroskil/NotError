@@ -37,6 +37,17 @@ function cekLogin(){
     }
 }
 
+function cekUserLogin(){
+    $CI =& get_instance();
+    $CI->load->library('session');
+    
+    if($CI->session->userdata(USERLOGIN)){
+        return TRUE;
+    }else{
+        show_error('Silahkan Login Kembali');
+    }
+}
+
 function getAdminLogin($param=""){
     $CI =& get_instance();
     $CI->load->library('session');
@@ -45,12 +56,29 @@ function getAdminLogin($param=""){
     $username = $CI->session->userdata(ADMINLOGIN);
     
     if(empty($param)){
-        return $CI->muser->getall(array('UserName'=>$username));
+        return $CI->muser->getall(array('u.UserName'=>$username));
     }else{
-        $res = $CI->muser->getall(array('UserName'=>$username))->row();
+        $res = $CI->muser->getall(array('u.UserName'=>$username))->row();
         return $res->$param;
     }
 }
+
+function getUserLogin($param=""){
+    $CI =& get_instance();
+    $CI->load->library('session');
+    
+    $CI->load->model('muser');
+    $username = $CI->session->userdata(USERLOGIN);
+    
+    if(empty($param)){
+        return $CI->muser->getall(array('u.UserName'=>$username));
+    }else{
+        $res = $CI->muser->getall(array('u.UserName'=>$username))->row();
+        return $res->$param;
+    }
+}
+
+
 function getSetting($settingname){
     $CI =& get_instance();
     $CI->load->database();

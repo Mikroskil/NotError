@@ -9,8 +9,12 @@
 
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
-        $('.ui').button(); 
-       
+        $('#validate').validate();
+        
+        $('.ui').button();
+
+       	$('a[href="<?=current_url()?>"]').parent('li.navv').addClass('current');
+       	
     });
 </script>
 

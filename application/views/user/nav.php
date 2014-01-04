@@ -1,20 +1,19 @@
 <div class="nav-dashboard">
-    <h3>Dashboard</h3>
+	<h3>Iklan</h3>
     <div>
         <ul>
-            <li><?=anchor('dashboard','Menu 1')?></li>
-            <li><?=anchor('dashboard','Menu 2')?></li>
-            <li><?=anchor('dashboard','Menu 3')?></li>
-            <li><?=anchor('dashboard','Menu 4')?></li>
-            <li><?=anchor('dashboard','Menu 5')?></li>
+        	<li class="navv"><?=anchor('post/pasang','Pasang Iklan',array('class'=>'ui'))?></li>
+            <li class="navv"><?=anchor('post/active','Iklan Aktif',array('class'=>'ui'))?></li>
+            <li class="navv"><?=anchor('post/nonactive','Iklan Non Aktif',array('class'=>'ui'))?></li>
+            <li class="navv"><?=anchor('post/rejected','Iklan Ditolak',array('class'=>'ui'))?></li>
         </ul>
     </div>
     
-    <h3>Menu</h3>
+    <h3>Profil</h3>
     <div>
         <ul>
-            <li><?=anchor('dashboard','Menu 1')?></li>
-            <li><?=anchor('dashboard','Menu 2')?></li>
+            <li class="navv"><?=anchor(site_url('user/editprofil/'.getUserLogin('UserName')),'Edit Profil',array('class'=>'ui'))?></li>
+            <li class="navv"><?=anchor('user/changepassprofile','Ganti Password',array('class'=>'ui'))?></li>
         </ul>
     </div>
     

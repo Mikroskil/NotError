@@ -1,6 +1,6 @@
 html,body{
 	padding: 0;
-	margin;0;
+	margin:0;
 	background: #FFFFEC;		
 }
 a{
@@ -11,6 +11,11 @@ p{
 }
 h1,h2,h3,h4,h5,h6{
 	margin:0 0 5px;
+}
+
+select{
+	width: 300px;
+	padding: 5px
 }
 
 /*header*/
@@ -116,7 +121,7 @@ h1,h2,h3,h4,h5,h6{
 	border-radius: 5px 5px 0px 0px;
 	margin-bottom: 0;
 	margin-top: 10px;
-	color:#26B3F7;;
+	color:#26B3F7;
 }
 
 .nav-dashboard div{
@@ -127,32 +132,49 @@ h1,h2,h3,h4,h5,h6{
 
 .nav-dashboard ul{
 	list-style: none;
-	padding-left: 10px;
-	margin-bottom: 0;
+	padding: 0 6px 0 4px;
+	margin: 0;
+}
+
+.nav-dashboard ul li{
+	margin-bottom: 1px
 }
 
 .nav-dashboard ul li a{
-	text-decoration: none;
-	font-size: 14px;
-	color: #000000;
-	font-weight: bold;
+	width: 100%
 }
-
-.nav-dashboard ul li a:hover{
-	color: #003147;
-	text-decoration: underline;
+li.current a{
+	background: #0D3349
 }
-
 
 .dash_user{
 	margin-left: 10px;
+	padding: 10px;
 	float: left;
-	background: rgba(0,0,0,0.5);
-	width: 760px;
+	background: rgba(0,0,0,0.2);
+	width: 740px;
 	min-height: 500px;
 	margin: 10px 0;
-	border-radius: 5px;
+	border-radius: 5px
 }
+.dash_user #tabs-1, .dash_user #tabs-2{
+	padding: 0
+}
+
+.dash_user .ui-widget-content {
+	color: #000
+}
+.dash_user .ui-widget-content a{
+	color: #0066cc;
+}
+.dash_user .ui-widget-content a:hover{
+	color: #0099FF;
+}
+.dash_user .paging_full_numbers .ui-button {
+	color: #FFF !important
+}
+ 
+
 /*end dashboard user*/
 
 
