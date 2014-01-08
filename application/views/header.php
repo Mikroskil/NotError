@@ -72,36 +72,29 @@
     </header>
     
     <div class="nav">
-            <ul class="sf-menu">
-                <li><a href="<?=base_url()?>">Home</a></li>
-                <li><a>Category</a>
-                    <ul>
-                        <li><a>Category 1</a></li>
-                        <li><a>Category 2</a>
-                            <ul>
-                                <li><a>Category 1</a></li>
-                                <li><a>Category 2</a></li>
-                                <li><a>Category 4</a></li>
-                            </ul>
-                        </li>
-                        <li><a>Category 3</a></li>
-                        <li><a>Category 4</a></li>
-                    </ul>
-                </li>
-                <li><a>Product</a></li>
-                <li><a>Slider</a></li>
-                <li><a>Blog</a></li>
-                <li><a>About</a></li>
-                <li><a>Other</a></li>
-            </ul>
+        <?=form_open('post/seraching')?>
+            <input type="text" name="s" class="s searchings" placeholder="Searcing..." />
+            <select>
+                <option value="">-- Pilih Provinsi --</option>
+                <?php
+                    $prov = $this -> db -> order_by('ProvinceID','asc') -> get('provinces');
+                    getCombobox($prov, 'ProvinceID', 'ProvinceName');
+                ?>
+            </select>
+            <select>
+                <option value="">-- Pilih Kategori --</option>
+                <?php
+                    $cat = $this -> db -> order_by('CategoryID','asc') -> get('categories');
+                    getCombobox($cat, 'CategoryID', 'CategoryName');
+                ?>
+            </select>
             
-            <div class="searching">
-                <?=form_open('post/seraching')?>
-                <input type="text" name="s" class="s" placeholder="Searcing..." />
+            
+                <!-- <input type="text" name="s" class="s" placeholder="Searcing..." /> -->
                 <input type="button" class="ui" value="Search" />
-                <?=form_close()?>
-            </div>
-        </div>
+        <?=form_close()?>
+            
+    </div>
         <div class="clear"></div>
     
     <section class="contents">

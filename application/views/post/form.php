@@ -14,6 +14,12 @@
 
 <?=form_open(current_url())?>
 
+<h3>Type Post</h3>
+<input type="radio" value="1" name="PostTypeID" id="Sale"  <?=$edit? $result->PostTypeID==1?'checked=""':'' : ''?> /> <label for="Sale">Sale</label>
+<input type="radio" value="2" name="PostTypeID" id="Rent"  <?=$edit? $result->PostTypeID==2?'checked=""':'' : ''?> /> <label for="Rent">Rent</label>
+<input type="radio" value="3" name="PostTypeID" id="Service"  <?=$edit? $result->PostTypeID==3?'checked=""' : '':''?> /> <label for="Service">Service</label>
+<br />
+
 <label for="PostTitle"><h3>Title</h3></label>
 <textarea id="PostTitle" name="PostTitle"><?=$edit?$result->PostTitle : set_value('PostTitle')?></textarea><br />
 <script>
@@ -65,8 +71,56 @@
     }); 
 </script><br />
 
-<label for="ViewDetailID"><h3>View Detail</h3></label>
-<input type="text" id="ViewDetailID" name="ViewDetailID" value="<?=$edit?$result->ViewDetailID:set_value('ViewDetailID')?>" /><br />
+<label for="Price"><h3>Price</h3></label>
+<input type="text" id="Price" name="Price" value="<?=$edit?$result->Price:set_value('Price')?>" />
+<input type="checkbox" value="1" name="IsNego" id="IsNego" <?=$edit?'checked=""':''?> />
+<label for="IsNego">Nego</label>
+<br />
+
+<h3>Condition</h3>
+<select>
+    <option value="">Pilih Kondisi</option>
+    <?php
+        $cond = $this -> db -> order_by('ConditionID','asc') -> get('conditions');
+        getCombobox($cond, 'ConditionID', 'ConditionName',$edit?$result->ConditionID:set_value('ConditionID'));
+    ?>
+</select>
+
+<h3>Country</h3>
+<select id="CountryID" class="required" name="CountryID">
+	<option value="">Pilih Negara</option>
+	<?php $c = $this -> db -> order_by('CountryID', 'asc') -> get('countries');
+        GetCombobox($c, 'CountryID', 'CountryName', $edit ? $result->CountryID : set_value('CountryID'));
+	?>
+</select>
+
+
+<h3>Province</h3>
+<select id="ProvinceID" class="required" name="ProvinceID">
+  	<?php $p = $this -> db -> order_by('ProvinceID', 'asc') -> where('CountryID',$result->CountryID) -> get('provinces');
+        GetCombobox($p, 'ProvinceID', 'ProvinceName', $edit?$result->ProvinceID:'');
+	?>
+</select>
+
+
+<h3>City</h3>
+<select id="CityID" class="required" name="CityID">
+	<?php $ct = $this -> db -> order_by('CityID', 'asc') -> where('ProvinceID',$result->ProvinceID) -> get('cities');
+        GetCombobox($ct, 'CityID', 'CityName', $edit?$result->CityID:'');
+	?>
+</select>
+
+<!-- <label for="ViewDetailID"><h3>View Detail</h3></label>
+<input type="text" id="ViewDetailID" name="ViewDetailID" value="<?=$edit?$result->ViewDetailID:set_value('ViewDetailID')?>" /><br /> -->
+
+<h3>Status</h3>
+<select>
+    <option value="">Pilih Status</option>
+    <?php
+        $cond = $this -> db -> order_by('StatusID','asc') -> get('status');
+        getCombobox($cond, 'StatusID', 'StatusName',$edit?$result->StatusID:set_value('StatusID'));
+    ?>
+</select>
 
 <label for="PostExpired"><h3>Post Expired</h3></label>
 <input type="text" id="PostExpired" class="datepicker" name="PostExpired" value="<?=$edit?$result->PostExpired:set_value('PostExpired')?>" /><br />
@@ -102,6 +156,71 @@
 </table>
 
 <?php }?>
+
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('.pilihmedia').click(function(){
+            var a = this;
+            $('#GeneralDialog').load($(a).attr('href'),{},function(){
+                var dlg = this;
+                $(dlg).dialog({
+                    modal:true,
+                    width:800,
+                    height:500,
+                    show: 'clip',
+                    title: 'Pilih Gambar'
+                });
+                $('.selectit',dlg).click(function(){
+                    $('.removemedia').show();
+                    $('#MediaID').val($(this).attr('mediaid'));
+                    $('.infomedia').html('<img src="<?=base_url()?>assets/images/media/'+$(this).attr('src')+'" width="100" /> <br />Gambar sudah dipilih <strong>'+$(this).attr('title')+'</strong>. <a href="#" class="removemedia">x</a>').show();
+                    $(dlg).dialog('close');
+                    return false;
+                });
+            })
+            return false;
+        });
+        
+        $('#userfile').change(function(){
+            $(this).attr('disable',true);
+            $('.uploadstatus').html('Sedang mengupload file <img src="<?=base_url()?>assets/images/load.gif" alt="ajaxloading" />');
+            $('form').ajaxSubmit({
+                dataType: 'json',
+                url: '<?=site_url('media/uploadprofile')?>',
+                success : function(data){
+                    //$('.removemedia').show();
+                    $('#MediaID').val(data.fullmediapath);
+                    $('.infomedia').html('<img src="<?=base_url()?>assets/images/profile/'+data.mediapath+'" width="100" height="100" />').show();
+                    $(this).attr('disable',false);
+                    $('.uploadstatus').empty();
+                }
+            });
+        });
+        
+       $('#CountryID').change(function(){
+                var con = this;
+                $('#CityID').empty();
+                $('#ProvinceID').unbind().load('<?=site_url('ajax/getprovinceoption')?>',{'id':$(con).val()},function(data){
+                    $(this).change(function(){
+                        var pro = this;
+                        $('#CityID').unbind().load('<?=site_url('ajax/getcityoption')?>',{'province':$(pro).val()},function(data){
+                            $('#CityID').change(function(){
+                                $.ajax({
+                                    url: '<?=site_url('ajax/cekshippingavailable')?>',
+                                    data: {shipment:$('#ShipmentID').val(),city:$('#CityID').val()},
+                                    dataType: 'json',
+                                    type: 'post'
+                                }).done(function(data){
+                                    
+                                });
+                            });
+                        });
+                    });
+                });
+            }); 
+    });
+</script>
 
 
 
