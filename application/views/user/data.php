@@ -26,7 +26,7 @@
     ?>
         <tr>
             <td><input type="checkbox" name="cek[]" class="cek" value="<?=$d->UserName?>" /></td>
-            <td><?=anchor(site_url('post/edit/'.$d->UserName),$d->UserName)?></td>
+            <td><?=anchor(site_url('user/edit/'.$d->UserName),$d->UserName)?></td>
             <td><?=$d -> Name?></td>
             <td><?=$d -> Email?></td>
             <td><?=$d->RoleID==1?'Administrator':'User' ?></td>

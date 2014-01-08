@@ -17,7 +17,7 @@
 <input type="text" class="required" name="UserName" id="UserName" value="<?=$edit?$result->UserName : set_value('UserName')?>"  />
 
 <label for="Password"><h3>Password</h3></label>
-<input type="text" class="required" name="Password" id="Password" value="<?=$edit?$result->Password : set_value('Password')?>"  />
+<input type="text" class="required" name="Password" id="Password" value="<?=set_value('Password')?>"  />
 
 <fieldset>
     <legend>Information</legend>

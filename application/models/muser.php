@@ -72,7 +72,8 @@ class MUser extends CI_Model {
    }
 	
 	function getrow($user){
-		return $this -> db -> where('UserName',$user) -> get($this -> info) -> row();
+		$this -> db -> join ('userinformations ui','ui.UserName = u.UserName','LEFT');
+		return $this -> db -> where('u.UserName',$user) -> get($this -> table.' u') -> row();
 	}
 	
 }
