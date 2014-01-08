@@ -28,12 +28,6 @@ class Post extends CI_Controller {
                 'label'=>'post title',
                 'rules'=>'required'
             
-            ),
-            array(
-                'field'=>'PostContent',
-                'label'=>'post content',
-                'rules'=>'required'
-            
             )
         );
         
@@ -53,7 +47,15 @@ class Post extends CI_Controller {
                 'ShowComment'   => $this -> input -> post('ShowComment'),
                 'ShowShare'     => $this -> input -> post('ShowShare'),
                 'CreatedBy'     => getAdminLogin('UserName'),
-                'CreatedOn'     => date('Y-m-d H:i:s')
+                'CreatedOn'     => date('Y-m-d H:i:s'),
+                'StatusID'      => $this -> input -> post('StatusID'),
+                'PostTypeID'    => $this -> input -> post('PostTypeID'),
+                'Price'         => $this -> input -> post('Price'),
+                'IsNego'        => $this -> input -> post('IsNego'),
+                'ConditionID'   => $this -> input -> post('ConditionID'),
+                'CountryID'     => $this -> input -> post('CountryID'),
+                'ProvinceID'    => $this -> input -> post('ProvinceID'),
+                'CityID'        =>$this -> input -> post('CityID')
             );
             $this->mpost->insert($insert);
         
@@ -77,12 +79,6 @@ class Post extends CI_Controller {
                 'label'=>'post title',
                 'rules'=>'required'
             
-            ),
-            array(
-                'field'=>'PostContent',
-                'label'=>'post content',
-                'rules'=>'required'
-            
             )
         );
         
@@ -103,7 +99,15 @@ class Post extends CI_Controller {
                 'ShowComment'   => $this -> input -> post('ShowComment'),
                 'ShowShare'     => $this -> input -> post('ShowShare'),
                 'UpdateBy'      => getAdminLogin('UserName'),
-                'UpdateOn'      => date('Y-m-d H:i:s')
+                'UpdateOn'      => date('Y-m-d H:i:s'),
+                'StatusID'      => $this -> input -> post('StatusID'),
+                'PostTypeID'    => $this -> input -> post('PostTypeID'),
+                'Price'         => $this -> input -> post('Price'),
+                'IsNego'        => $this -> input -> post('IsNego'),
+                'ConditionID'   => $this -> input -> post('ConditionID'),
+                'CountryID'     => $this -> input -> post('CountryID'),
+                'ProvinceID'    => $this -> input -> post('ProvinceID'),
+                'CityID'        =>$this -> input -> post('CityID')
             );
             $this->mpost->update($id,$insert);
         

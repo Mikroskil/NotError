@@ -1,4 +1,4 @@
-<!DOCTYPE  html>
+<!-- <!DOCTYPE  html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -41,13 +41,14 @@
 
 </head>
 
-<body>
-    
-<div class="adminlogin">
-    <div class="logo-login">
-        <center><img height="70" src="<?=getMediaPath(getSetting('Logo'))?>" /></center>
-    </div>
-    
+<body> -->
+
+
+<?php $this -> load -> view('header') ?>
+<div style="width: 48%; margin: 0 1%; border: 1px solid #333;float: left; min-height: 300px">
+<div class="login_user" style="padding: 10px">
+    <fieldset>
+        <legend><h2><?=$title?></h2></legend>
     
     <?php if(validation_errors()){?>
         <div class="error">
@@ -64,11 +65,28 @@
     <button type="submit" class="ui">Login</button>
     
     <?=form_close()?>
-    <div class="clear"></div><br />
-    <?=anchor(site_url(),'<< back',array('style'=>'text-decoration:none'))?>
+    </fieldset>
+    
+    <!-- <?=anchor(site_url(),'<< back',array('style'=>'text-decoration:none'))?> -->
+</div>
 </div>
 
-</body>
+<div  style="width: 48%; margin: 0 1% 0 0; border: 1px solid #333;float: left; min-height: 300px">
+    <div style="padding: 10px">
+    <fieldset>
+        <legend><h2>Register</h2></legend>
+        
+        <?=anchor('user/register','Register',array('class' => 'ui'))?>
+        
+    </fieldset>
+    </div>
+</div>
+
+<div class="clear"></div><br />
+
+<?php $this -> load -> view('footer') ?>
+
+<!-- </body>
 
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
@@ -76,5 +94,5 @@
     });
 </script>
 
-</html>
+</html> -->
 

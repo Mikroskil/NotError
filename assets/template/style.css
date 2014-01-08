@@ -21,7 +21,7 @@ select{
 /*header*/
 .header{
 	background: rgba(0,100,100,1);
-	height: 80px;	
+	height: 85px;	
 	position: relative;
 	border-radius:5px;
 }
@@ -37,6 +37,16 @@ select{
 	float: right;
 	
 }
+.searchings{
+	width: 400px;
+	padding: 6px 6px 7px
+	
+}
+
+.nav select{
+	width: 200px
+}
+
 .searching .s{
 	padding: 3px 5px 6px;
 	border-radius:10px;	
