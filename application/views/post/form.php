@@ -14,47 +14,142 @@
 
 <?=form_open(current_url())?>
 
-<h3>Type Post</h3>
-<input type="radio" value="1" name="PostTypeID" id="Sale"  <?=$edit? $result->PostTypeID==1?'checked=""':'' : ''?> /> <label for="Sale">Sale</label>
-<input type="radio" value="2" name="PostTypeID" id="Rent"  <?=$edit? $result->PostTypeID==2?'checked=""':'' : ''?> /> <label for="Rent">Rent</label>
-<input type="radio" value="3" name="PostTypeID" id="Service"  <?=$edit? $result->PostTypeID==3?'checked=""' : '':''?> /> <label for="Service">Service</label>
-<br />
-
-<label for="PostTitle"><h3>Title</h3></label>
-<textarea id="PostTitle" name="PostTitle"><?=$edit?$result->PostTitle : set_value('PostTitle')?></textarea><br />
-<script>
-    CKEDITOR.replace('PostTitle', {
-        height : 75,
-        toolbar : [{
-            name : 'document',
-            items : ['Source', '-']
-        }, // Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
-        ['Undo', 'Redo'], // Defines toolbar group without name.
-        {
-            name : 'basicstyles',
-            items : ['Bold', 'Italic', 'Styles', 'Format', 'Font', 'FontSize', 'TextColor', 'BGColor']
-        }]
-    }); 
-</script>
-
-<label for="CategoryID"><h3>Category</h3></label>
-<select id="CategoryID" name="CategoryID">
-    <option value="">-- Not Category --</option>
-    <?php
-        $catt = $this -> db -> get('categories');
-        echo getCombobox($catt, 'CategoryID', 'CategoryName',$result->CategoryID);
-    ?>
+<table>
+    <tr>
+        <th><h3>Type Post</h3></th>
+        <td>
+            <input type="radio" value="1" name="PostTypeID" id="Sale"  <?=$edit? $result->PostTypeID==1?'checked=""':'' : ''?> /> <label for="Sale">Sale</label>
+            <input type="radio" value="2" name="PostTypeID" id="Rent"  <?=$edit? $result->PostTypeID==2?'checked=""':'' : ''?> /> <label for="Rent">Rent</label>
+            <input type="radio" value="3" name="PostTypeID" id="Service"  <?=$edit? $result->PostTypeID==3?'checked=""' : '':''?> /> <label for="Service">Service</label>
+        </td>
+    </tr>
+    <tr>
+        <th><label for="PostTitle"><h3>Title</h3></label></th>
+        <td>
+            <input type="text" id="PostTitle" name="PostTitle" value="<?=$edit?$result->PostTitle:set_value('PostTitle')?>" /><br />
+            <!-- <textarea id="PostTitle" name="PostTitle"><?=$edit?$result->PostTitle : set_value('PostTitle')?></textarea><br />
+            <script>
+                CKEDITOR.replace('PostTitle', {
+                    height : 75,
+                    toolbar : [{
+                        name : 'document',
+                        items : ['Source', '-']
+                    }, // Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
+                    ['Undo', 'Redo'], // Defines toolbar group without name.
+                    {
+                        name : 'basicstyles',
+                        items : ['Bold', 'Italic', 'Styles', 'Format', 'Font', 'FontSize', 'TextColor', 'BGColor']
+                    }]
+                }); 
+            </script> -->
+        </td>
+    </tr>
+    <tr>
+        <th><label for="CategoryID"><h3>Category</h3></label></th>
+        <td>
+            <select id="CategoryID" name="CategoryID">
+                <option value="">-- Not Category --</option>
+                <?php
+                    $catt = $this -> db -> get('categories');
+                    echo getCombobox($catt, 'CategoryID', 'CategoryName',$result->CategoryID);
+                ?>
+                    
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th><label for="MediaID"><h3>Media</h3></label></th>
+        <td>
+            <input type="file" id="MediaID" name="MediaID" value="<?=$edit?$result->MediaID:set_value('MediaID')?>" /><br /><br />
+        </td>
+    </tr>
+    <tr>
+        <th><label for="Description"><h3>Description</h3></label></th>
+        <td>
+            <textarea class="ckeditor" id="Description" name="Description"><?=$edit?$result->Description:set_value('Description')?></textarea><br />
+        </td>
+    </tr>
+    <tr>
+        <th><label for="Price"><h3>Price</h3></label></th>
+        <td>
+            <input type="text" id="Price" name="Price" value="<?=$edit?$result->Price:set_value('Price')?>" />
+            <input type="checkbox" value="1" name="IsNego" id="IsNego" <?=$edit?'checked=""':''?> />
+            <label for="IsNego">Nego</label>
+            <br />
+        </td>
+    </tr>
+    <tr>
+        <th><h3>Condition</h3></th>
+        <td>
+            <select  id="ConditionID" class="required" name="ConditionID">
+                <option value="">Pilih Kondisi</option>
+                <?php
+                    $cond = $this -> db -> order_by('ConditionID','asc') -> get('conditions');
+                    getCombobox($cond, 'ConditionID', 'ConditionName',$edit?$result->ConditionID:set_value('ConditionID'));
+                ?>
+            </select>
+        </td>
+    </tr>
+    <tr>
+            <th><h3>Country</h3></th>
+            <td>
+                <select id="CountryID" class="required" name="CountryID">
+                    <option value="">Pilih Negara</option>
+                    <?php $c = $this -> db -> order_by('CountryID', 'asc') -> get('countries');
+                        GetCombobox($c, 'CountryID', 'CountryName', $edit ? $result->CountryID : set_value('CountryID'));
+                    ?>
+                </select>
+            </td>
+        </tr>
         
-</select>
+    <tr>
+        <th><h3>Province</h3></td>
+        <td>
+            <select id="ProvinceID" class="required" name="ProvinceID">
+                <?php $p = $this -> db -> order_by('ProvinceID', 'asc') -> where('CountryID',$result->CountryID) -> get('provinces');
+                    GetCombobox($p, 'ProvinceID', 'ProvinceName', $edit?$result->ProvinceID:'');
+                ?>
+            </select>
+        </td>
+    </tr>
+    
+    
+    <tr>
+        <th><h3>City</h3></th>
+        <td>
+            <select id="CityID" class="required" name="CityID">
+                <?php $ct = $this -> db -> order_by('CityID', 'asc') -> where('ProvinceID',$result->ProvinceID) -> get('cities');
+                    GetCombobox($ct, 'CityID', 'CityName', $edit?$result->CityID:'');
+                ?>
+            </select>
+        </td>    
+    </tr>
 
-<label for="MediaID"><h3>Media</h3></label>
-<input type="file" id="MediaID" name="MediaID" value="<?=$edit?$result->MediaID:set_value('MediaID')?>" />
-<br /><br />
+    <tr>
+        <th><h3>Status</h3></th>
+        <td>
+            <select id="StatusID" class="required" name="StatusID">
+                <option value="">Pilih Status</option>
+                <?php
+                    $cond = $this -> db -> order_by('StatusID','asc') -> get('status');
+                    getCombobox($cond, 'StatusID', 'StatusName',$edit?$result->StatusID:set_value('StatusID'));
+                ?>
+            </select>
 
-<label for="PostContent"><h3>Content</h3></label>
-<textarea class="ckeditor" id="PostContent" name="PostContent"><?=$edit?$result->PostContent:set_value('PostContent')?></textarea><br />
+        </td>
+    </tr>
+    <tr>
+        <th><label for="PostExpired"><h3>Post Expired</h3></label></th>
+        <td>
+            <input type="text" id="PostExpired" class="datepicker" name="PostExpired" value="<?=$edit?$result->PostExpired:set_value('PostExpired')?>" /><br />
+        </td>
+    </tr>
+</table>
 
-<label for="Description"><h3>Description</h3></label>
+<!-- <label for="PostContent"><h3>Content</h3></label>
+<textarea class="ckeditor" id="PostContent" name="PostContent"><?=$edit?$result->PostContent:set_value('PostContent')?></textarea><br /> -->
+
+<!-- <label for="Description"><h3>Description</h3></label>
 <textarea id="Description" name="Description"><?=$edit?$result->Description:set_value('Description')?></textarea><br />
 <script>
     CKEDITOR.replace('Description', {
@@ -69,62 +164,15 @@
             items : ['Bold', 'Italic', 'Styles', 'Format', 'Font', 'FontSize', 'TextColor', 'BGColor']
         }]
     }); 
-</script><br />
+</script><br /> -->
 
-<label for="Price"><h3>Price</h3></label>
-<input type="text" id="Price" name="Price" value="<?=$edit?$result->Price:set_value('Price')?>" />
-<input type="checkbox" value="1" name="IsNego" id="IsNego" <?=$edit?'checked=""':''?> />
-<label for="IsNego">Nego</label>
-<br />
-
-<h3>Condition</h3>
-<select>
-    <option value="">Pilih Kondisi</option>
-    <?php
-        $cond = $this -> db -> order_by('ConditionID','asc') -> get('conditions');
-        getCombobox($cond, 'ConditionID', 'ConditionName',$edit?$result->ConditionID:set_value('ConditionID'));
-    ?>
-</select>
-
-<h3>Country</h3>
-<select id="CountryID" class="required" name="CountryID">
-	<option value="">Pilih Negara</option>
-	<?php $c = $this -> db -> order_by('CountryID', 'asc') -> get('countries');
-        GetCombobox($c, 'CountryID', 'CountryName', $edit ? $result->CountryID : set_value('CountryID'));
-	?>
-</select>
-
-
-<h3>Province</h3>
-<select id="ProvinceID" class="required" name="ProvinceID">
-  	<?php $p = $this -> db -> order_by('ProvinceID', 'asc') -> where('CountryID',$result->CountryID) -> get('provinces');
-        GetCombobox($p, 'ProvinceID', 'ProvinceName', $edit?$result->ProvinceID:'');
-	?>
-</select>
-
-
-<h3>City</h3>
-<select id="CityID" class="required" name="CityID">
-	<?php $ct = $this -> db -> order_by('CityID', 'asc') -> where('ProvinceID',$result->ProvinceID) -> get('cities');
-        GetCombobox($ct, 'CityID', 'CityName', $edit?$result->CityID:'');
-	?>
-</select>
 
 <!-- <label for="ViewDetailID"><h3>View Detail</h3></label>
 <input type="text" id="ViewDetailID" name="ViewDetailID" value="<?=$edit?$result->ViewDetailID:set_value('ViewDetailID')?>" /><br /> -->
 
-<h3>Status</h3>
-<select>
-    <option value="">Pilih Status</option>
-    <?php
-        $cond = $this -> db -> order_by('StatusID','asc') -> get('status');
-        getCombobox($cond, 'StatusID', 'StatusName',$edit?$result->StatusID:set_value('StatusID'));
-    ?>
-</select>
 
-<label for="PostExpired"><h3>Post Expired</h3></label>
-<input type="text" id="PostExpired" class="datepicker" name="PostExpired" value="<?=$edit?$result->PostExpired:set_value('PostExpired')?>" /><br />
 
+<br />
 <h3>Show Comment</h3>
 <input type="checkbox" name="ShowComment" id="ShowComment" <?=$edit? $result->ShowComment? 'checked=""' :'' : ''?>  value="1" /><label for="ShowComment">Show Comment This Post</label>
 

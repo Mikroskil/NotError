@@ -1,6 +1,6 @@
 <?php $this -> load -> view('header')?>
 
-<div>
+<div class="reg-item">
 <center>  
 
 <fieldset>

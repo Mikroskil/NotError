@@ -61,7 +61,7 @@
         </div>
         <!-- <h2 style="color: #FFF;margin-left: 6px;">Logo</h2> -->
         
-        <div style="position: absolute; top: 10px; right: 10px; color: #CCC">
+        <div class="linker">
             <?php if($this->session->userdata(USERLOGIN)){
                echo 'Hai,<strong>'.getUserLogin('UserName').'</strong> '. anchor('user/dashboard','Dasboard',array('class'=>'ui')) .' | '. anchor('user/logout','Logout',array('class'=>'ui')); 
             }else{
@@ -91,7 +91,7 @@
             
             
                 <!-- <input type="text" name="s" class="s" placeholder="Searcing..." /> -->
-                <input type="button" class="ui" value="Search" />
+                <input type="button" class="ui cari" value="Search" />
         <?=form_close()?>
             
     </div>

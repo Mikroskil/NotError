@@ -1,51 +1,8 @@
-<!-- <!DOCTYPE  html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link href="<?=base_url()?>assets/images/logo1.ico" rel='shortcut icon' type='image/x-icon'/>
-    
-    <title>Admin</title>
-   
-    <script type="text/javascript" src="<?=base_url()?>assets/js/jquery-1.8.3.min.js" charset="utf-8"></script>
-    <script type="text/javascript" src="<?=base_url()?>assets/ui/js/jquery-ui-1.10.3.custom.min.js" charset="utf-8"></script>
-    
-    <link rel="stylesheet" href="<?=base_url()?>assets/css/screen.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
-    <link rel="stylesheet" href="<?=base_url()?>assets/ui/css/jquery-ui-1.10.3.custom.min.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
-
-    <style type="text/css">
-    body {  
-            background: #FFFFEC;  
-        }
-    
-        p{
-            margin : 0;
-        }
-        
-        .adminlogin{
-            background: #333;
-            width: 250px;
-            margin: 0 auto;
-            margin-top: 150px;
-            padding: 20px;
-            border-radius: 8px;
-            border: 5px solid rgba(0,0,0,0.5);
-        }
-        .adminlogin input{
-            width: 236px;
-            padding: 7px 5px;
-            margin-bottom: 15px;
-            border-radius: 3px;
-            box-shadow: 0px 1px 2px rgba(255,255,255,0.6);
-        }
-    </style>
-
-</head>
-
-<body> -->
-
-
 <?php $this -> load -> view('header') ?>
-<div style="width: 48%; margin: 0 1%; border: 1px solid #333;float: left; min-height: 300px">
+
+<div class="content-login">
+
+<div class="log-item">
 <div class="login_user" style="padding: 10px">
     <fieldset>
         <legend><h2><?=$title?></h2></legend>
@@ -66,33 +23,23 @@
     
     <?=form_close()?>
     </fieldset>
-    
-    <!-- <?=anchor(site_url(),'<< back',array('style'=>'text-decoration:none'))?> -->
-</div>
 </div>
 
-<div  style="width: 48%; margin: 0 1% 0 0; border: 1px solid #333;float: left; min-height: 300px">
+</div>
+
+<div class="log-item">
     <div style="padding: 10px">
     <fieldset>
         <legend><h2>Register</h2></legend>
-        
-        <?=anchor('user/register','Register',array('class' => 'ui'))?>
-        
+        <center>
+            <p>Jika anda tidak mempunyai akun, silahkan registrasi disini:</p><br />
+            <?=anchor('user/register','Register',array('class' => 'ui'))?>
+        </center>
     </fieldset>
     </div>
 </div>
 
+</div>
 <div class="clear"></div><br />
 
 <?php $this -> load -> view('footer') ?>
-
-<!-- </body>
-
-<script type="text/javascript" charset="utf-8">
-    $(document).ready(function(){
-       $('.ui').button(); 
-    });
-</script>
-
-</html> -->
-
