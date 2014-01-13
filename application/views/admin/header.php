@@ -12,6 +12,7 @@
     <script type="text/javascript" src="<?=base_url()?>assets/ui/js/jquery-1.9.1.js" charset="utf-8"></script>
     <script type="text/javascript" src="<?=base_url()?>assets/js/jquery-1.8.3.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="<?=base_url()?>assets/ui/js/jquery-ui-1.10.3.custom.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="<?=base_url()?>assets/js/jquery.validate.min.js" charset="utf-8"></script>
     <script type="text/javascript" src="<?=base_url()?>assets/superfish/js/hoverIntent.js"></script>
     <script type="text/javascript" src="<?=base_url()?>assets/superfish/js/superfish.js"></script>
     <script type="text/javascript" src="<?=base_url()?>assets/datatable/media/js/jquery.dataTables.js"></script>
@@ -124,18 +125,25 @@
                     <li><?=anchor('theme', 'Themes')?></li>
                     <li><?=anchor('setting/logo', 'Logo')?></li>
                     <li><?=anchor('setting/favicon', 'Favicon')?></li>
-                    <li>
+                    <!-- <li>
                         <?=anchor('widget', 'Widgets')?>
                         <ul>
                             <li><?=anchor('widget/add', 'Add New Widget')?></li>
                             <li><?=anchor('widget', 'All Widgets')?></li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li>
                         <?=anchor('menu', 'Menus')?>
                         <ul>
                             <li><?=anchor('menu/add', 'Add New Menu')?></li>
                             <li><?=anchor('menu', 'All Menus')?></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <?=anchor('footer', 'Footer Column')?>
+                        <ul>
+                            <li><?=anchor('footer/add', 'Add New Footer Column')?></li>
+                            <li><?=anchor('footer', 'All Footer Column')?></li>
                         </ul>
                     </li>
                 </ul>

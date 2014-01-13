@@ -69,13 +69,20 @@ img.adminLogo:hover{
 	border-radius: 3px;
 }
 
+.datatable textarea{
+	width: auto !important;
+	height: auto !important;
+	box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+	border-radius: 3px;
+}
+
 
 .isi{
 	float: left;
 	width: 740px;
 }
 
-.isi input[type='text']{
+.isi input[type='text'], .input{
 	width: 300px;
 	padding: 7px;
 	box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
@@ -145,7 +152,34 @@ img.adminLogo:hover{
 }
 /*end contents*/
 
-
+#gambars li {
+    border: 1px solid #666666;
+    float: left;
+    height: 112px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 5px;
+    position: relative;
+    width: 112px;
+}
+#gambars li img {
+    height: 100%;
+    width: 100%;
+}
+#gambars li .deletephoto {
+    background-image: url("../images/fancybox_sprite.png");
+    cursor: pointer;
+    display: block;
+    height: 36px;
+    overflow: hidden;
+    position: absolute;
+    right: -18px;
+    text-indent: -9999em;
+    top: -18px;
+    width: 36px;
+    z-index: 10;
+}
 
 
 /*footer*/
@@ -153,6 +187,33 @@ img.adminLogo:hover{
 	background-image: url('images/foot1.png');
 	min-height: 40px;
 }
+
+
+.sidebarcontainer {
+    border: 1px solid #C0C0C0;
+    border-radius: 7px;
+    float: left;
+    margin: 10px;
+    padding: 10px;
+    width: 300px;
+}
+.sidebarcontainer h3 {
+    margin: 5px;
+}
+
+.sidebarcontainer a.editSidebar, .sidebarcontainer a.hapusfooterc{
+	color: #0066CC;	
+}
+
+#GeneralDialog h3{
+	color: #FBF9EE;
+}
+
+#SideContainer .sidebarcontainer {
+    padding: 5px;
+}
+
+
 /*end footer*/
 
 

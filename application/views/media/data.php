@@ -15,7 +15,7 @@
         <th>ID</th>
         <th>Picture</th>
         <th>URL</th>
-        <th>Date</th>
+        <!-- <th>Date</th> -->
         <th>Author</th>
     </tr>
     </thead>
@@ -29,11 +29,11 @@
             <td><?=$d->MediaID?></td>
             <td>
                 <a href="<?=base_url()?>media/edit/<?=$d->MediaID?>.html">
-                    <img height="150" src="<?=base_url()?>assets/images/media/<?=$d->MediaPath?>" />
+                    <img height="100" src="<?=base_url()?>assets/images/media/<?=$d->MediaPath?>" />
                 </a>
             </td>
-            <td><?=$d->MediaFullPath?></td>
-            <td><?=$d->UpdateOn? $d->UpdateOn : $d->CreatedOn?></td>
+            <td><textarea readonly=""><?=$d->MediaFullPath?></textarea></td>
+            <!-- <td><?=$d->UpdateOn? $d->UpdateOn : $d->CreatedOn?></td> -->
             <td><?=$d->UpdateBy? $d->UpdateBy : $d->CreatedBy?></td>
         </tr>    
     <?php }?>

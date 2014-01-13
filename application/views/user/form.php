@@ -17,7 +17,22 @@
 <input type="text" class="required" name="UserName" id="UserName" value="<?=$edit?$result->UserName : set_value('UserName')?>"  />
 
 <label for="Password"><h3>Password</h3></label>
-<input type="text" class="required" name="Password" id="Password" value="<?=set_value('Password')?>"  />
+<input type="password" class="input" name="Password" id="Password" value="<?=set_value('Password')?>"  />
+<br /><br />
+<label for="RoleID"><h3>Role</h3></label>
+<select name="RoleID">
+    <option>Role</option>
+    <?php
+        $role = $this -> db -> order_by('RoleID','asc') -> get('Roles');
+        getCombobox($role, 'RoleID', 'RoleName',$edit?$result->RoleID:set_value('RoleID'));
+    ?>
+</select>
+
+<h3>Suspend</h3>
+<input type="checkbox"name="IsSuspend" id="IsSuspend" value="<?=$edit?$result->IsSuspend:set_value('IsSuspend')?>"  />
+<label style="vertical-align: middle" for="IsSuspend">Suspend This Username</label>
+
+<br /><br /><br />
 
 <fieldset>
     <legend>Information</legend>
@@ -25,14 +40,14 @@
         <tr>
             <th>Photo Profile</th>
             <td>
+                <?php $pp = $edit?$result->PhotoProfile:""; ?>
                 <div class="success infomedia" style="width: 100px;height: 100px;padding: 5px;float: left;margin: 0 10px 0 0;overflow: hidden" >
                     <?php if(!empty($pp)){ ?>
                         <img style="height: 100%; width: 100%" src="<?=$result->PhotoProfile?>" />
                     <?php }?>
                 </div>
-                <a href="<?=site_url('media/select')?>" class="pilihmedia ui">Choose Library</a><br /><br />
+                <a href="<?=site_url('media/selectpath')?>" class="pilihmedia ui">Choose Library</a><br /><br />
                 <input type="file" name="userfile" id="userfile" class="ui" />
-                <?php $pp = $edit?$result->PhotoProfile:""; ?>
                 <input type="hidden" id="MediaID" name="MediaID" value="<?=$pp?>" />
                 <span class="uploadstatus"></span>
                 
@@ -117,7 +132,7 @@
                 $('.selectit',dlg).click(function(){
                     $('.removemedia').show();
                     $('#MediaID').val($(this).attr('mediaid'));
-                    $('.infomedia').html('<img src="<?=base_url()?>assets/images/media/'+$(this).attr('src')+'" width="100" /> <br />Gambar sudah dipilih <strong>'+$(this).attr('title')+'</strong>. <a href="#" class="removemedia">x</a>').show();
+                    $('.infomedia').html('<img src="<?=base_url()?>assets/images/media/'+$(this).attr('src')+'" style="height: 100%; width: 100%" /> ').show();
                     $(dlg).dialog('close');
                     return false;
                 });

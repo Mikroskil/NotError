@@ -23,13 +23,14 @@
     <?php
         $d = 0;
         foreach ($all->result() as $d) {
+            $role = $this -> db -> where('RoleID',$d->RoleID) -> get('Roles') -> row();
     ?>
         <tr>
             <td><input type="checkbox" name="cek[]" class="cek" value="<?=$d->UserName?>" /></td>
             <td><?=anchor(site_url('user/edit/'.$d->UserName),$d->UserName)?></td>
             <td><?=$d -> Name?></td>
             <td><?=$d -> Email?></td>
-            <td><?=$d->RoleID==1?'Administrator':'User' ?></td>
+            <td><?=$role->RoleName?></td>
         </tr>    
     <?php }?>
     </tbody>

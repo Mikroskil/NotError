@@ -10,6 +10,8 @@ class Base extends CI_Controller {
 	}
 	
 	function index(){
+	    $this->load->library('shortcodes');
+        
 	    $pageid = GetSetting("HomePageID");
         $data['result'] = $this -> mpage -> getall(array('PageID'=>$pageid))->row();
         $data['title'] = "";

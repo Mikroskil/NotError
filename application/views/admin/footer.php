@@ -14,6 +14,8 @@
 
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function(){
+	    $('#validate').validate();
+	    
 	    $( '.datepicker' ).datepicker({
             showOn: "button",
             buttonImage: "<?=base_url().'assets/images/calendar.gif' ?> ",

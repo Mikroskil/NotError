@@ -15,21 +15,27 @@
         <td><input type="checkbox" id="cek" /></td>
         <th>ID</th>
         <th>Title</th>
+        <th>Category</th>
         <th>Date</th>
         <th>Created By</th>
+        <th>Status</th>
     </tr>
     </thead>
     <tbody>
     <?php
         $d = 0;
         foreach ($all->result() as $d) {
+            $cat = $this -> db -> where('CategoryID',$d->CategoryID) -> get('categories') -> row();
+            $status = $this -> db -> where('StatusID',$d->StatusID) -> get('status') -> row();
     ?>
         <tr>
             <td><input type="checkbox" name="cek[]" class="cek" value="<?=$d->PostID?>" /></td>
             <td><?=$d->PostID?></td>
             <td><?=anchor(site_url('post/edit/'.$d->PostID),$d->PostTitle)?></td>
+            <td><?=$d->CategoryID? $cat->CategoryName : '-'?></td>
             <td><?=date('d-M-Y H:i:s',strtotime($d->PostDate))?></td>
-            <td>Admin</td>
+            <td><?=$d -> CreatedBy?></td>
+            <td><?=$d->StatusID? $status->StatusName : '-' ?></td>
         </tr>    
     <?php }?>
     </tbody>

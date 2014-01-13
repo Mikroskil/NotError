@@ -144,24 +144,6 @@ input.searchings{
 
 
 
-/*footer*/
-.footer{
-	/*background: rgba(0,100,100,1);*/
-	background: #CCCCCC;
-	padding: 10px
-	/*min-height: 40px;*/
-	/*border-radius:5px;*/
-	/*width: 930px;*/
-}
-
-.footer,.copy{
-	/*padding-top: 15px;
-	padding-left: 20px;*/
-}
-/*end footer*/
-
-
-
 /*dashboard user*/
 .nav-dashboard{
 	width: 150px;
@@ -266,4 +248,187 @@ li.current a{
 .reg-item input{
 	width: 250px;
 	padding: 5px
+}
+
+
+
+
+
+
+
+/*footer*/
+.footer{
+	
+}
+
+.footer .copy{
+	
+}
+/*end footer*/
+
+
+.footercol_container{
+	padding-bottom: 15px
+}
+
+
+.footercol_container ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.footercol_container li li {
+    margin: 2px;
+}
+.footercol_container li ul {
+    margin: 0;
+    padding: 0;
+}
+.footercol {
+    float: left;
+}
+.footercol {
+    text-align: left;
+}
+.footercol .in {
+    margin: 3px 5px;
+}
+.footercol.last .in {
+    margin: 3px 0 3px 5px;
+}
+.footercol.first .in {
+    margin: 3px 5px 3px 0;
+}
+
+
+
+
+.post .po{
+	width: 60%;
+	float: left
+}
+
+.users{
+	float: left;
+	width: 40%
+}
+
+.users .pp{
+	border: 1px solid #333333;
+	padding: 3px;
+	height: 100px;
+	width: 100px;
+	background: #FFF;
+	float: left;
+	margin-right: 10px
+	
+}
+
+
+.outer #Gambar, .outer .thumbs{
+    padding: 0;
+    margin: 0 auto;
+  	list-style: none outside none;  
+}
+.outer #Gambar {
+  list-style: none outside none;
+  min-height: 350px;
+  margin-bottom: 5px;
+  border: 1px solid #CCCCCC;
+  padding: 5px;
+  
+}
+#Gambar li{
+    cursor: pointer;    
+    height: 350px;
+  	width: 500px;
+}
+#Gambar li img {
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+}
+
+ul.thumbs {
+    width: 500px;
+}
+ul.thumbs li{
+	float: left;
+    border: 1px solid #000;
+    overflow: hidden;
+    height: 48px !important;
+    width: 81px;
+}
+.thumbs li img{
+	width: 100% !important;
+	height: 100% !important;
+}
+
+.viewtypethumbs{
+	min-height: 345px;
+	width: 300px;
+	float: left;
+	margin-right: 10px;
+	margin-left: 3px;
+	text-align: center;
+}
+
+.viewtypethumbs .imgcontainer {
+    height: 182px;
+    text-align: center;
+    vertical-align: middle;
+    width: 282px;
+}
+.viewtypethumbs .content{
+	margin-top: 190px;
+	height: 72px;
+	overflow: hidden;
+}
+
+
+.viewtypelist{
+	margin-bottom: 10px;	
+}
+
+.viewtypelist .judul{
+	/*float: left;*/
+	/*width: 70%;	*/
+}
+.viewtypelist .waktu{
+	font-weight: bold;
+}
+
+.viewtypelist .content{
+	height: 51px;
+	overflow: hidden;
+}
+.viewtypelist .imgcontainer {
+    height: 145px;
+    text-align: center;
+    vertical-align: middle;
+    width: 145px;
+}
+.imgcontainer img {
+    height: 100%;
+    margin: 0 auto;
+    max-height: 100%;
+    max-width: 100%;
+    width: 100%;
+}
+.pagination {
+    font-size: 1.2em;
+}
+.pagination .pages {
+    margin-right: 20px;
+}
+.pagination span {
+    background: none repeat scroll 0 0 transparent;
+    color: #000000;
+    margin: 3px;
+    padding: 3px 5px;
+}
+.pagination a span {
+    background: none repeat scroll 0 0 transparent;
+    text-decoration: underline;
 }

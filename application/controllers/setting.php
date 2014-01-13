@@ -16,9 +16,26 @@ class Setting extends CI_Controller {
         
     }
     
+    function save(){
+        cekLogin();
+        $r = $this->input->get('redirect');
+        $posts = $this->input->post();
+        
+        foreach ($posts as $settingname => $settingvalue){
+            $this->msetting->Set($settingname,$settingvalue);
+        }
+        
+        if(empty($r)){
+            redirect(site_url('setting/general')."?success=1");
+        }else{
+            redirect(site_url($r)."?success=1");
+        }
+    }
+    
     function general(){
         cekLogin();
         $data['title'] = 'General Setting';
+        $data['r']      = $this -> msetting -> GetGeneral();
         
         $this -> load -> view('setting/general', $data);  
    

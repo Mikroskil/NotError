@@ -1,21 +1,18 @@
-    </section>
-    <footer class="footer">
-        <div clas="copy"><center>Copyright&copy; NotError!</center></div> 
-    </footer>
-
-</div>
-
-</body>    
-
-<script type="text/javascript" charset="utf-8">
-    $(document).ready(function(){
-        $('#validate').validate();
-        
-        $('.ui').button();
-
-       	$('a[href="<?=current_url()?>"]').parent('li.navv').addClass('current');
-       	
+<?php if($this->input->get('previewtheme') != ""){ ?>
+<script type="text/javascript">
+    $('a').each(function(){
+        $(this).attr('href',$(this).attr('href')+"?&previewtheme=<?=$this->input->get('previewtheme')?>");
     });
 </script>
-
-</html>
+<?php
+}
+?>
+<?php
+try{
+    if(is_file(ActiveThemePath()."/footer.php")){
+        include(ActiveThemePath()."/footer.php");
+    }
+}catch(Exception $e){
+    echo "File Header Not Found";
+}
+#$this->load->view('themes/'.ACTIVETHEME.'/header');

@@ -207,7 +207,7 @@ class User extends CI_Controller {
         
         $rules = array(
             array(
-                'filed' => 'UserName',
+                'field' => 'UserName',
                 'label' => 'Username',
                 'rules' => 'required'
             ),
@@ -226,7 +226,7 @@ class User extends CI_Controller {
             
             $insert = array(
                 'UserName'  => $user,
-                'Password'  => $this -> input -> post('Password'),
+                'Password'  => md5($this -> input -> post('Password')),
                 'RoleID'    => $this -> input -> post('RoleID'),
                 'IsSuspend' => $this -> input -> post('IsSuspend')
             );
@@ -237,9 +237,9 @@ class User extends CI_Controller {
                 'UserName'  => $user,
                 'Name'      => $this -> input -> post('Name'),
                 'Email'     => $this -> input -> post('Email'),
-                'PhotoProfle'   => $this -> input -> post('MediaID'),
+                'PhotoProfile'   => $this -> input -> post('MediaID'),
                 'CountryID' => $this -> input -> post('CountryID'),
-                'rovinceID' => $this -> input -> post('ProvinceID'),
+                'ProvinceID' => $this -> input -> post('ProvinceID'),
                 'CityID'    => $this -> input -> post('CityID'),
                 'Address'   => $this -> input -> post('Address'),
                 'Telp'      => $this -> input -> post('Telp')
@@ -259,17 +259,12 @@ class User extends CI_Controller {
         cekLogin();
         $data['edit'] = TRUE;
         $data['title']  = 'Edit User';
-        $data['result'] = $this -> muser -> getrow($username);
+        $data['result'] = $result = $this -> muser -> getrow($username);
         
         $rules = array(
             array(
-                'filed' => 'UserName',
+                'field' => 'UserName',
                 'label' => 'Username',
-                'rules' => 'required'
-            ),
-            array(
-                'filed' => 'Password',
-                'label' => 'Password',
                 'rules' => 'required'
             )
         );
@@ -279,23 +274,23 @@ class User extends CI_Controller {
         $this -> form_validation -> set_rules($rules);
         
         if($this -> form_validation -> run()){
-            
             $insert = array(
                 'UserName'  => $user,
-                'Password'  => $this -> input -> post('Password'),
                 'RoleID'    => $this -> input -> post('RoleID'),
                 'IsSuspend' => $this -> input -> post('IsSuspend')
             );
-            
+            if($this->input->post('Password')!=""){
+                $insert['Password'] = md5($this->input->post('Password'));
+            }
             $this -> muser -> update($username, $insert);
             
             $info = array(
                 'UserName'  => $user,
                 'Name'      => $this -> input -> post('Name'),
                 'Email'     => $this -> input -> post('Email'),
-                'PhotoProfle'   => $this -> input -> post('MediaID'),
+                'PhotoProfile'   => $this -> input -> post('MediaID'),
                 'CountryID' => $this -> input -> post('CountryID'),
-                'rovinceID' => $this -> input -> post('ProvinceID'),
+                'ProvinceID' => $this -> input -> post('ProvinceID'),
                 'CityID'    => $this -> input -> post('CityID'),
                 'Address'   => $this -> input -> post('Address'),
                 'Telp'      => $this -> input -> post('Telp')
@@ -308,6 +303,7 @@ class User extends CI_Controller {
             $this -> load -> view('user/form', $data);
         }
     }
+
         
     function index(){
         cekLogin();

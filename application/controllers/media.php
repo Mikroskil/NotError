@@ -14,6 +14,12 @@ class Media extends CI_Controller {
         $this->setPath_url_img_upload_folder(base_url() . "assets/images/media/");
 	}
     
+    function multiselect(){
+        cekLogin();
+        $data['r'] = $this->mmedia->GetAll();
+        $this->load->view('media/multiselect',$data);
+    }
+    
     function add(){
         cekLogin();
        $data ['edit'] = FALSE; 
@@ -155,6 +161,13 @@ class Media extends CI_Controller {
         $data['r'] = $this -> mmedia -> getall();
         
         $this -> load -> view('media/select',$data);
+    }
+    
+    function selectpath(){
+        cekLogin();
+        $data['r'] = $this -> mmedia -> getall();
+        
+        $this -> load -> view('media/selectpath',$data);
     }
     
     function upload(){

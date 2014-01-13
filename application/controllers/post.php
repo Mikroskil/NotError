@@ -33,6 +33,12 @@ class Post extends CI_Controller {
         
         $this -> form_validation -> set_rules($rules);
         if($this -> form_validation -> run()){
+            
+            $slug = str_replace(array('.',' '), '-', url_title(strip_tags(strtolower($this->input->post('PostTitle')))));
+            
+            $medias = $this->input->post('MediaID');
+            $mediaid = empty($medias[0]) ? 0 : $medias[0];
+            
             $last = $this -> mpost -> getlast();
             
             $insert=array(
@@ -40,7 +46,8 @@ class Post extends CI_Controller {
                 'PostTitle'     => $this -> input -> post('PostTitle'),
                 'PostContent'   => $this -> input -> post('PostContent'),
                 'CategoryID'   => $this -> input -> post('CategoryID'),
-                'MediaID'       => $this -> input -> post('MediaID'),
+                'MediaID'       => $mediaid,
+                'PostSlug'      => $slug,
                 'PostDate'      => date('Y-m-d H:i:s'),
                 'PostExpired'   => date('Y-m-d H:i:s',strtotime($this -> input -> post('PostExpired'))),
                 'Description'   => $this -> input -> post('Description'),
@@ -58,6 +65,23 @@ class Post extends CI_Controller {
                 'CityID'        =>$this -> input -> post('CityID')
             );
             $this->mpost->insert($insert);
+            
+            if(!empty($medias)){
+                $img = 0;
+                foreach ($medias as $image) {
+                    $img++;
+                    if($img == 1){
+                        continue;
+                    }
+                    $lastimage = $this -> mpost -> GetLastPostImage()+1;
+                    $data = array(
+                        'PostImageID'   => $lastimage,
+                        'PostID'        => $last,
+                        'MediaID'       => $image
+                    );
+                    $this -> mpost -> insertpostimage($data);
+                }
+            }
         
             redirect(site_url('post/edit/'.$last).'?success=1');
         
@@ -72,6 +96,7 @@ class Post extends CI_Controller {
         $data['edit']   = TRUE;
         $data['title']  = 'Change Post';
         $data['result'] = $this -> mpost -> getrow($id);
+        $data['images'] = $this -> mpost -> GetPostImage($id);
         
         $rules = array(
             array(
@@ -84,6 +109,13 @@ class Post extends CI_Controller {
         
         $this ->form_validation->set_rules($rules);
         if($this->form_validation->run()){
+            
+            $slug = str_replace(array('.',' '), '-', strtolower($this->input->post('PostSlug')));
+            #$slug = str_replace(array('.',' '), '-', url_title(strip_tags(strtolower($this->input->post('PostTitle')))));
+            
+            $medias = $this->input->post('MediaID');
+            $mediaid = empty($medias[0]) ? 0 : $medias[0];
+            
             $last=$this->mpost->getlast();
             
             $insert=array(
@@ -92,7 +124,8 @@ class Post extends CI_Controller {
                 'PostContent'   =>$this->input->post('PostContent'),
                 'PostContent'   => $this -> input -> post('PostContent'),
                 'CategoryID'   => $this -> input -> post('CategoryID'),
-                'MediaID'       => $this -> input -> post('MediaID'),
+                'MediaID'       => $mediaid,
+                'PostSlug'          => $slug,
                 'PostDate'      => date('Y-m-d H:i:s'),
                 'PostExpired'   => date('Y-m-d H:i:s',strtotime($this -> input -> post('PostExpired'))),
                 'Description'   => $this -> input -> post('Description'),
@@ -110,6 +143,24 @@ class Post extends CI_Controller {
                 'CityID'        =>$this -> input -> post('CityID')
             );
             $this->mpost->update($id,$insert);
+            
+            if(!empty($medias)){
+                $this -> mpost -> deletepostimage($id);
+                $img = 0;
+                foreach ($medias as $image) {
+                    $img++;
+                    if($img == 1){
+                        continue;
+                    }
+                    $lastimage = $this -> mpost -> GetLastPostImage()+1;
+                    $data = array(
+                        'PostImageID'   => $lastimage,
+                        'PostID'        => $id,
+                        'MediaID'       => $image
+                    );
+                    $this -> mpost -> insertpostimage($data);
+                }
+            }
         
             redirect(site_url('post/edit/'.$id).'?success=1');
         
@@ -211,6 +262,121 @@ class Post extends CI_Controller {
             
             $this->load->view('post/pasang',$data);
         }
+    }
+
+
+
+    function search(){
+        $this->load->helper('captcha');
+        
+        $key = $this->input->get('key');
+        $prov = $this->input->get('prov');
+        $cat = $this->input->get('cat');
+        
+        
+        $condition = array();
+        $condition['StatusID'] = 1;
+        
+        if($key != ''){
+            $key = str_replace("-", " ", $key);
+            #$condition['PostTitle'] = $key;
+            
+            #foreach ($model ->result() as $keyy) {
+            #    echo $keyy->PostTitle.'<br/>';    
+            #}
+            
+            #return;
+        }
+        
+        if($prov != ''){
+            $condition['ProvinceID'] = $prov;
+        }
+        
+        if($cat != ''){
+            $condition['CategoryID'] = $cat;
+        }
+
+        
+        $data['model'] = $model = $this->mpost->GetAll($condition);
+        if(!empty($key)){
+            $data['model'] =$model = $this->db->like(array('PostTitle'=>$key)) ->get('posts');
+        }
+        #echo $this->db->last_query();
+        $data['title'] = 'Hasil Pencarian';
+        $data['catname'] = '';
+        $data['description'] = '';
+        $data['keyword'] = '';
+        $data['exist'] = FALSE;
+        
+        
+        $this->load->view('header',$data);
+        $this->load->view(DEFAULTVIEWTYPE,$data);
+        $this->load->view('footer',$data);
+        
+    }
+
+
+    function view($url){
+        $this->load->helper('captcha');
+
+        $data['model'] = $model = $this->mpost->GetAll(array('PostSlug'=>$url),"")->row();
+
+        $data['title'] = strip_tags($model->PostTitle);
+
+        $data['media'] = $this->db->where('MediaID',$model->MediaID)->get('media')->row();
+        
+        $data['description'] = strip_tags($model->Description);
+        
+        $rand = rand(000000,999999);
+
+        $vals = array(
+
+            'word' => $rand,
+
+            'img_path' => './assets/images/captcha/',
+
+            'img_url' => base_url().'assets/images/captcha/',
+
+            'font_path' => './assets/fonts/Quartz.ttf',
+
+            'img_width' => 150,
+
+            'img_height' => 30,
+
+            'expiration' => 7200
+
+        );
+        
+        
+        $cap = create_captcha($vals);
+        
+        
+        $data['images'] = $this->db->where('PostID',$model->PostID)->join('media','media.MediaID=postimages.MediaID','left')->get('postimages');
+        
+        $this->session->set_userdata(array('Captcha'=>$rand));
+
+        $data['captcha'] = $cap['image'];
+        
+                
+        $this->db->where(array('IsVerified'=>1));
+        $this->db->order_by('CommentDate','asc');
+        $showcomments = $data['showcomments'] = $this -> db -> where('PostID',$model -> PostID) -> get('comments');
+        
+        $cektemplate = $this->db->where('DetailViewID',$model->DetailViewID)->get('detailviews');
+        #$template = $this->db->where('DetailViewID',$model->DetailViewID)->get('detailviews')->row();
+                
+        $data['loadview'] = ($cektemplate->num_rows == 0) ? DEFAULTDETAILVIEW : '';#$template->DetailViewFile;
+        #$data['sidebarright'] = (empty($model->SidebarRight)) ? DEFAULTSIDEBARRIGHT : $model->SidebarRight;
+        #$data['sidebarleft'] = (empty($model->SidebarLeft)) ? DEFAULTSIDEBARLEFT : $model->SidebarLeft;
+        $data['sidebarright'] = '';
+        $data['sidebarleft'] = '';
+        
+        $data['impactprice'] = 0;
+        $data['impactweight'] = 0;
+        $data['impactimage'] = "";
+        
+        
+        $this->load->view('post/view',$data);
     }
     
     

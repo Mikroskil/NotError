@@ -60,7 +60,36 @@
     <tr>
         <th><label for="MediaID"><h3>Media</h3></label></th>
         <td>
-            <input type="file" id="MediaID" name="MediaID" value="<?=$edit?$result->MediaID:set_value('MediaID')?>" /><br /><br />
+            <fieldset style="background: #EFEFDE">
+                <ul class="sortable gambars" style="list-style: none; padding: 0;" id="gambars">
+                    <li>
+                        <center>
+                            <a style="margin-top: 5px;" href="#" class="ui selectpicture">Upload</a>
+                            <br /><br /><br />
+                            <a href="#" class="ui selectmedia">Media</a>
+                        </center>
+                    </li>
+                    <?php if($edit && !empty($images)){ ?>
+                        <?php $mastermedia = GetMedia($result->MediaID); ?>
+                        <?php if(!empty($mastermedia)){ ?>
+                        <li>
+                            <img src="<?=$mastermedia?>" />
+                            <a href="#" class="deletephoto deletephoto">x</a>
+                            <input type="hidden" name="MediaID[]" value="<?=$result->MediaID?>" />
+                        </li>
+                        <?php } ?>
+                        <?php foreach ($images->result() as $media) { ?>
+                            <li>
+                                <img src="<?=$media->MediaFullPath?>" />
+                                <a href="#" class="deletephoto deletephoto">x</a>
+                                <input type="hidden" name="MediaID[]" value="<?=$media->MediaID?>" />
+                            </li>
+                        <?php } ?>
+                    <?php }else{ ?>
+                    
+                    <?php } ?>
+                </ul>
+            </fieldset>
         </td>
     </tr>
     <tr>
@@ -173,6 +202,16 @@
 
 
 <br />
+
+<?php if($edit){?><label for="url"><h3>URL</h3></label>
+<div style="background: #ccc;padding: 5px 10px;">
+<?=base_url()?>post/view/<input type="text" id="url" name="PostSlug" value="<?=$result->PostSlug?>" />.html
+
+</div>
+<input style="width: 97%" type="text" readonly="" value="<?=base_url().'post/view/'.$result->PostSlug.'.html'?>" />
+<?php } ?>
+
+
 <h3>Show Comment</h3>
 <input type="checkbox" name="ShowComment" id="ShowComment" <?=$edit? $result->ShowComment? 'checked=""' :'' : ''?>  value="1" /><label for="ShowComment">Show Comment This Post</label>
 
@@ -193,56 +232,112 @@
         <td>Created On</td>
         <td><?=$result->CreatedOn?></td>
     </tr>
-    <tr>
+    <!-- <tr>
         <td>Update By</td>
         <td><?=$result->UpdateBy?></td>
     </tr>
     <tr>
         <td>Update On</td>
         <td><?=$result->UpdateOn?></td>
-    </tr>
+    </tr> -->
 </table>
 
 <?php }?>
 
+<form id="uploader" enctype="multipart/form-data" method="post">
+    <input type="file" style="visibility: hidden" id="filer" name="userfile" class="userfile" />
+</form>
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $('.pilihmedia').click(function(){
-            var a = this;
-            $('#GeneralDialog').load($(a).attr('href'),{},function(){
-                var dlg = this;
-                $(dlg).dialog({
-                    modal:true,
-                    width:800,
-                    height:500,
-                    show: 'clip',
-                    title: 'Pilih Gambar'
+       function pushuploader(){
+            var uploadercontent = '<li>'+
+                                    '<center><br /><a href="#" class="selectpicture">Upload Gambar</a>'+
+                                    '<br /><br />Atau<br /><br />'+
+                                    '<a href="#" class="selectmedia">Pilih Dari Media</a></center>'+
+                                '</li>';
+            $('#gambars').prepend(uploadercontent);
+        }
+                
+        function upload(idx){
+            $('.userfile').unbind().change(function(){
+                $('#gambars li').eq(idx).html('<img style="width:auto; height:auto;" src="<?=base_url()?>assets/images/load.gif" /> <br /> Uploading...');
+                $(this).parent().ajaxSubmit({
+                    dataType: 'json',
+                    url: '<?=site_url('media/upload')?>',
+                    success : function(data){
+                        var con =   '<img class="fancybox" src="'+data.fullmediapath+'" />'+
+                                    '<a href="#" class="deletephoto deletephoto">x</a>'+
+                                    '<input type="hidden" name="MediaID[]" value="'+data.mediaid+'" />';
+                        $('#gambars li').eq(idx).html(con);
+                        pushuploader();
+                    }
                 });
-                $('.selectit',dlg).click(function(){
-                    $('.removemedia').show();
-                    $('#MediaID').val($(this).attr('mediaid'));
-                    $('.infomedia').html('<img src="<?=base_url()?>assets/images/media/'+$(this).attr('src')+'" width="100" /> <br />Gambar sudah dipilih <strong>'+$(this).attr('title')+'</strong>. <a href="#" class="removemedia">x</a>').show();
-                    $(dlg).dialog('close');
-                    return false;
-                });
-            })
-            return false;
-        });
-        
-        $('#userfile').change(function(){
-            $(this).attr('disable',true);
-            $('.uploadstatus').html('Sedang mengupload file <img src="<?=base_url()?>assets/images/load.gif" alt="ajaxloading" />');
-            $('form').ajaxSubmit({
-                dataType: 'json',
-                url: '<?=site_url('media/uploadprofile')?>',
-                success : function(data){
-                    //$('.removemedia').show();
-                    $('#MediaID').val(data.fullmediapath);
-                    $('.infomedia').html('<img src="<?=base_url()?>assets/images/profile/'+data.mediapath+'" width="100" height="100" />').show();
-                    $(this).attr('disable',false);
-                    $('.uploadstatus').empty();
+            });
+        }
+                
+        $(document).ready(function(){
+            $('#gambars').sortable();
+            $('.deletephoto').live('click',function(){
+                var yakin = confirm('Apa anda yakin?');
+                if(yakin){
+                    $(this).parents('li').remove();
+                    if($('#gambars li').length == 0){
+                        pushuploader();
+                    }
                 }
+                return false;
+            })
+            
+            $('.selectpicture').live('click',function(){
+                var par = $(this).parents('li');
+                var idx = $('#gambars li').index(par);
+                upload(idx);
+                $('#filer').click();
+                return false;
+            });
+            
+            $('.selectmedia').live('click',function(){
+                var a = this;
+                var par = $(this).parents('li');
+                var idx = $('#gambars li').index(par);
+                
+                $('#GeneralDialog').load('<?=site_url('media/multiselect')?>',{},function(){
+                    var dlg = this;
+                    $(dlg).dialog({
+                        modal:true,
+                        width:800,
+                        height:500,
+                        show: 'clip',
+                        title: 'Pilih Gambar',
+                        buttons:{
+                            "OK" : function(){
+                                $('li input:checked',$(dlg)).each(function(){
+                                    var conz =  '<li><img src="<?=base_url()?>assets/images/media/'+$(this).attr('src')+'" />'+
+                                                '<a href="#" class="deletephoto deletephoto">x</a>'+
+                                                '<input type="hidden" name="MediaID[]" value="'+$(this).attr('mediaid')+'" /> </li>';
+                                    $('#gambars').append(conz);
+                                });
+                                $(dlg).dialog('close');
+                            },
+                            "Batal" : function(){
+                                $(dlg).dialog('close');
+                            }
+                        }
+                    });
+                })
+                return false;
+            });
+            
+            $('.removemedia').live('click',function(){
+                var kos = 0;
+                var yakin = confirm('Apa anda yakin?');
+                if(!yakin){
+                    return false;
+                }
+                $('#MediaID').val(kos);
+                $(this).closest('.infomedia').empty().hide();
+                return false;
             });
         });
         
