@@ -43,7 +43,7 @@
     
 <div class="adminlogin">
     <h3 style="margin-top: 0; color: #FFF">
-        <center><img height="70" src="<?=base_url().'assets/images/logo.png'?>" /></center>
+        <center><img height="70" src="<?=base_url().'assets/images/logo2.png'?>" /></center>
     </h3>
     
     <?php if(validation_errors()){?>

@@ -50,7 +50,7 @@
     
     
     <header class="header">
-        <img class="adminLogo" height="50" src="<?=base_url().'assets/images/logo.png'?>" /> 
+        <img class="adminLogo" height="50" src="<?=base_url().'assets/images/logo2.png'?>" /> 
     </header>
     
     <section class="contents">
