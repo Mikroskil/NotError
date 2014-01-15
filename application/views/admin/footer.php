@@ -54,6 +54,12 @@
 	   
 	});
 	
+	$.widget("ui.dialog",$.ui.dialog,{
+	    _allowInteraction:function(event){
+	        return !!$(event.target).closest(".cke").length||this._super(event);
+	    }
+	    
+	});
 	$(document).ready(function() {
         oTable = $('.datatable').dataTable({
             "bJQueryUI": true,

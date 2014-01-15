@@ -352,7 +352,6 @@ class Post extends CI_Controller {
         
         
         
-        
         $this->load->view('header',$data);
         $this->load->view(DEFAULTVIEWTYPE,$data);
         $this->load->view('footer',$data);

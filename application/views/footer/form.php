@@ -219,7 +219,7 @@
             $('.editSidebar').unbind().click(function(){
                 var a = this;
                 var idx = $('.editSidebar').index(this);
-                $('#GeneralDialog').load('<?=site_url('sidebar/addhtml')?>',{'edit':1},function(){
+                $('#GeneralDialog').load('<?=site_url('footer/addhtml')?>',{'edit':1},function(){
                     if (CKEDITOR.instances['SidebarHTML']) {
                         CKEDITOR.remove(CKEDITOR.instances['SidebarHTML']);
                     }

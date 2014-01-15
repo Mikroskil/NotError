@@ -37,12 +37,15 @@
     
 <ul class="navv">
     <li><?=anchor(base_url(),'Home')?> >> </li>
-    <li><a href="#">Hasil Pencarian</a></li>
+    <li><a href="#"><?=$title?></a></li>
 </ul>
 
 <div class="clear" style="height: 10px"></div>
 
 <?php
+    
+    if(count($model -> result())!=0){
+    
     foreach ($model->result() as $post) {
         
         if($post -> PostExpired > date('Y-m-d') || empty($post -> PostExpired)){
@@ -113,7 +116,9 @@
 
 <?php } 
 }
-?>
+}else{ ?>
+    <div class="error">Not Found</div>
+<?php }?>
 <br />
 <?php if(!isset($nopagination)){ ?>
     <?php if($exist){ ?>

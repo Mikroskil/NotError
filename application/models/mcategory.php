@@ -47,6 +47,10 @@ class MCategory extends CI_Model {
     function getrow($id){
         return $this->db->where('CategoryID',$id)->get($this->table)->row();
     }
+    
+    function getid($name){
+        return $this->db->where('CategoryURL',$name)->get($this->table)->row();
+    }
 
 }
 

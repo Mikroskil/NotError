@@ -123,5 +123,35 @@ class Category extends CI_Controller {
         redirect(site_url('category').'?deleted=1');
         
     }
+    
+    function view($cat){
+        $this->load->helper('captcha');
+        
+        $this -> load -> model('mpost');
+        
+        $condition = array();
+        $condition['StatusID'] = 1;
+        
+        $catid = $this -> mcategory -> getid($cat);
+        
+        $condition['CategoryID'] = $catid -> CategoryID;    
+            
+        $data['model'] = $model = $this->mpost->GetAll($condition);
+        
+        $data['title'] = $cat;
+        $data['catname'] = '';
+        $data['description'] = '';
+        $data['keyword'] = '';
+        $data['exist'] = FALSE;
+        
+        
+        
+        $this->load->view('header',$data);
+        $this->load->view(DEFAULTVIEWTYPE,$data);
+        $this->load->view('footer',$data);
+        
+        
+    }
+    
 }
 

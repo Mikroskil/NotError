@@ -1,0 +1,75 @@
+body{
+
+	background: url("images/slider-bg.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
+
+	
+}
+.header{
+	background: url("images/main-bg.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.nav{
+	background: #b70000;	
+}
+.container{
+	padding: 0
+}
+
+.itemss{
+	float: left;
+	padding:3px;
+	margin-right:5px;
+}
+.in h2{
+	color: #EFD945;
+font-size: 16px;
+/*padding-bottom: 17px;*/
+text-transform: uppercase;
+font-weight: bold
+	
+}
+
+.in ul{
+	margin-left: 5px;
+	padding: 0 10px 5px;
+}
+
+.in ul li a, .in ul li {
+	color: #FFFFFF;
+	line-height: 1.2em;
+}
+.in ul li a{
+	text-decoration: none;
+}
+.in ul li a:hover{
+	color: #0063DC;
+	
+}
+
+
+
+.footercol{
+ border-right: 1px solid #CD3333; 
+}
+
+.footercol.last{
+	border-right: 0;
+}
+
+.footer{
+	
+border: medium none;
+padding-bottom: 10px;
+padding-top: 34px;
+background: url("images/main-bg.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
+
+}
+.copy{
+	border-top: 1px solid #CD3333;
+	padding-top: 10px;
+	padding-left: 5px;
+	
+}
+.copy p{
+	color: #EB9999;
+	font-size: 11px;
+}

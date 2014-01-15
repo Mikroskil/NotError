@@ -1,5 +1,5 @@
     </section>
-    <hr />
+    <!-- <hr /> -->
     <footer class="footer">
         <div class="footercol_container">
             <?php GetFooterColumn('footercol') ?>
