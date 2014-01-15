@@ -13,10 +13,10 @@
     <thead>
     <tr>
         <td><input type="checkbox" id="cek" /></td>
-        <th>ID</th>
         <th>Title</th>
         <th>Category</th>
         <th>Date</th>
+        <th>Expired</th>
         <th>Created By</th>
         <th>Status</th>
     </tr>
@@ -30,10 +30,10 @@
     ?>
         <tr>
             <td><input type="checkbox" name="cek[]" class="cek" value="<?=$d->PostID?>" /></td>
-            <td><?=$d->PostID?></td>
             <td><?=anchor(site_url('post/edit/'.$d->PostID),$d->PostTitle)?></td>
             <td><?=$d->CategoryID? $cat->CategoryName : '-'?></td>
             <td><?=date('d-M-Y H:i:s',strtotime($d->PostDate))?></td>
+            <td><?=$d->PostExpired? $d->PostExpired : 'Unlimited' ?></td>
             <td><?=$d -> CreatedBy?></td>
             <td><?=$d->StatusID? $status->StatusName : '-' ?></td>
         </tr>    

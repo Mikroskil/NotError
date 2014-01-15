@@ -39,6 +39,8 @@ class Post extends CI_Controller {
             $medias = $this->input->post('MediaID');
             $mediaid = empty($medias[0]) ? 0 : $medias[0];
             
+            $pe = $this -> input -> post('PostExpired');
+            
             $last = $this -> mpost -> getlast();
             
             $insert=array(
@@ -49,7 +51,7 @@ class Post extends CI_Controller {
                 'MediaID'       => $mediaid,
                 'PostSlug'      => $slug,
                 'PostDate'      => date('Y-m-d H:i:s'),
-                'PostExpired'   => date('Y-m-d H:i:s',strtotime($this -> input -> post('PostExpired'))),
+                'PostExpired'   => $pe? date('Y-m-d',strtotime($pe)) : NULL,
                 'Description'   => $this -> input -> post('Description'),
                 'ShowComment'   => $this -> input -> post('ShowComment'),
                 'ShowShare'     => $this -> input -> post('ShowShare'),
@@ -116,7 +118,12 @@ class Post extends CI_Controller {
             $medias = $this->input->post('MediaID');
             $mediaid = empty($medias[0]) ? 0 : $medias[0];
             
-            $last=$this->mpost->getlast();
+            #echo $this -> input -> post('PostExpired');
+            #return;
+            
+            $pe = $this -> input -> post('PostExpired');
+            
+            #$last=$this->mpost->getlast();
             
             $insert=array(
                 #'PostID'=>$last,
@@ -125,9 +132,9 @@ class Post extends CI_Controller {
                 'PostContent'   => $this -> input -> post('PostContent'),
                 'CategoryID'   => $this -> input -> post('CategoryID'),
                 'MediaID'       => $mediaid,
-                'PostSlug'          => $slug,
+                'PostSlug'      => $slug,
                 'PostDate'      => date('Y-m-d H:i:s'),
-                'PostExpired'   => date('Y-m-d H:i:s',strtotime($this -> input -> post('PostExpired'))),
+                'PostExpired'   => $pe? date('Y-m-d',strtotime($pe)) : NULL,
                 'Description'   => $this -> input -> post('Description'),
                 'ShowComment'   => $this -> input -> post('ShowComment'),
                 'ShowShare'     => $this -> input -> post('ShowShare'),
@@ -200,7 +207,7 @@ class Post extends CI_Controller {
 	
 	function nonactive(){
 		cekUserLogin();
-		$data['title'] = 'Iklan Tidak Aktif';
+		$data['title'] = 'Iklan Non Aktif';
 		$data['all']   = $this -> mpost -> getall(array('CreatedBy'=>getUserLogin('UserName')));
 		
 		$this -> load -> view('user/postnonactive',$data);
@@ -216,7 +223,6 @@ class Post extends CI_Controller {
 	
     function pasang(){
         cekUserLogin();
-        #$data['edit']   = FALSE;
         $data['title']  = 'Pasang Iklan';
         
         $rules=array(
@@ -230,6 +236,22 @@ class Post extends CI_Controller {
         
         $this -> form_validation -> set_rules($rules);
         if($this -> form_validation -> run()){
+            
+            $slug = str_replace(array('.',' '), '-', url_title(strip_tags(strtolower($this->input->post('PostTitle')))));
+            
+            $medias = $this->input->post('MediaID');
+            $mediaid = empty($medias[0]) ? 0 : $medias[0];
+            
+            $pe = $this -> input -> post('PostExpired');
+            
+            if(AUTOAPPROVE==AKTIF){
+                $status = AKTIF;
+            }else if(AUTOAPPROVE==NONAKTIF){
+                $status = NONAKTIF;
+            }else if(AUTOAPPROVE==REJECT){
+                $status = REJECT;
+            }
+            
             $last = $this -> mpost -> getlast();
             
             $insert=array(
@@ -237,26 +259,44 @@ class Post extends CI_Controller {
                 'PostTitle'     => $this -> input -> post('PostTitle'),
                 'PostContent'   => $this -> input -> post('PostContent'),
                 'CategoryID'   => $this -> input -> post('CategoryID'),
-                'MediaID'       => $this -> input -> post('MediaID'),
+                'MediaID'       => $mediaid,
+                'PostSlug'      => $slug,
                 'PostDate'      => date('Y-m-d H:i:s'),
-                #'PostExpired'   => date('Y-m-d H:i:s',strtotime($this -> input -> post('PostExpired'))),
+                'PostExpired'   => date('Y-m-d', strtotime('+30 DAY')),
                 'Description'   => $this -> input -> post('Description'),
-                #'ShowComment'   => $this -> input -> post('ShowComment'),
-                #'ShowShare'     => $this -> input -> post('ShowShare'),
+                'ShowComment'   => $this -> input -> post('ShowComment'),
+                'ShowShare'     => ALLOWSHARE,
                 'CreatedBy'     => getUserLogin('UserName'),
                 'CreatedOn'     => date('Y-m-d H:i:s'),
-                'StatusID'      => $this -> input -> post('StatusID'),
+                'StatusID'      => $status,
                 'PostTypeID'    => $this -> input -> post('PostTypeID'),
                 'Price'         => $this -> input -> post('Price'),
                 'IsNego'        => $this -> input -> post('IsNego'),
                 'ConditionID'   => $this -> input -> post('ConditionID'),
-                'Country'       => $this -> input -> post('CountryID'),
+                'CountryID'     => $this -> input -> post('CountryID'),
                 'ProvinceID'    => $this -> input -> post('ProvinceID'),
-                'CityID'        => $this -> input -> post('CityID')
+                'CityID'        =>$this -> input -> post('CityID')
             );
             $this->mpost->insert($insert);
+            
+            if(!empty($medias)){
+                $img = 0;
+                foreach ($medias as $image) {
+                    $img++;
+                    if($img == 1){
+                        continue;
+                    }
+                    $lastimage = $this -> mpost -> GetLastPostImage()+1;
+                    $data = array(
+                        'PostImageID'   => $lastimage,
+                        'PostID'        => $last,
+                        'MediaID'       => $image
+                    );
+                    $this -> mpost -> insertpostimage($data);
+                }
+            }
         
-            redirect(site_url('post/pasang/'.$last).'?success=1');
+            redirect(site_url('post/pasang').'?success=1');
         
         }else{
             
@@ -302,11 +342,15 @@ class Post extends CI_Controller {
             $data['model'] =$model = $this->db->like(array('PostTitle'=>$key)) ->get('posts');
         }
         #echo $this->db->last_query();
+        
+        
         $data['title'] = 'Hasil Pencarian';
         $data['catname'] = '';
         $data['description'] = '';
         $data['keyword'] = '';
         $data['exist'] = FALSE;
+        
+        
         
         
         $this->load->view('header',$data);

@@ -154,6 +154,14 @@
         </td>    
     </tr>
 
+    
+    <tr>
+        <th><label for="PostExpired"><h3>Post Expired</h3></label></th>
+        <td>
+            <input type="text" id="PostExpired" class="datepicker" name="PostExpired" value="<?=$edit?$result->PostExpired:set_value('PostExpired')?>" /><br />
+        </td>
+    </tr>
+    
     <tr>
         <th><h3>Status</h3></th>
         <td>
@@ -167,12 +175,7 @@
 
         </td>
     </tr>
-    <tr>
-        <th><label for="PostExpired"><h3>Post Expired</h3></label></th>
-        <td>
-            <input type="text" id="PostExpired" class="datepicker" name="PostExpired" value="<?=$edit?$result->PostExpired:set_value('PostExpired')?>" /><br />
-        </td>
-    </tr>
+    
 </table>
 
 <!-- <label for="PostContent"><h3>Content</h3></label>

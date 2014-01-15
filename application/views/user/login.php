@@ -1,6 +1,31 @@
 <?php $this -> load -> view('header') ?>
 
+<style>
+    .navv{
+        padding-left: 3px
+    }
+    
+    .navv li{
+        float: left;
+        list-style: none;
+        margin-right: 5px
+    }
+    .navv li a{
+        text-decoration: none;
+        font-size: 14px
+    }        
+    
+</style>
+    
+<ul class="navv">
+    <li><?=anchor(base_url(),'Home')?> >> </li>
+    <li><a href="#"><?=$title?></a></li>
+</ul>
+
+<div class="clear" style="height: 1px"></div>
+
 <div class="content-login">
+    
 
 <div class="log-item">
 <div class="login_user" style="padding: 10px">
@@ -40,6 +65,6 @@
 </div>
 
 </div>
-<div class="clear"></div><br />
+<div class="clear"></div>
 
 <?php $this -> load -> view('footer') ?>

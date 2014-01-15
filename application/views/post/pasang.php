@@ -1,10 +1,50 @@
 <?php $this -> load -> view('header')?>
 
+
+<style>
+    .navv{
+        padding-left: 3px
+    }
+    
+    .navv li{
+        float: left;
+        list-style: none;
+        margin-right: 5px
+    }
+    .navv li a{
+        text-decoration: none;
+        font-size: 14px
+    }        
+    
+</style>
+    
+<ul class="navv">
+    <li><?=anchor(base_url(),'Home')?> >> </li>
+    <li><a href="#"><?=$title?></a></li>
+</ul>
+
+<div class="clear" style="height: 1px"></div>
+
 <div>
     <?php $this -> load -> view('user/nav')?>
     
     <div class="dash_user">
-        <h2><?=$title?></h2>        
+        <style type="text/css">
+            select{
+                width: 300px;
+                padding: 5px
+            }
+        </style>
+        
+        <h2><?=$title?></h2>
+        
+        <?php if($this->input->get('success')==1){?>
+           <div class="success">Your data has been saved</div> 
+        <?php }?>
+        
+        <?php if(validation_errors()){?>
+           <div class="error"><?=validation_errors()?></div> 
+        <?php }?>        
         
     <?=form_open(current_url(),array('id'=>'validate'))?>
     <table>
@@ -27,6 +67,17 @@
                     <option value="">-- category --</option>
                     <?php $c = $this -> db -> order_by('CategoryID', 'asc') -> get('categories');
                         GetCombobox($c, 'CategoryID', 'CategoryName', set_value('CategoryID'));
+                    ?>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th>Condition</th>
+            <td>
+                <select id="ConditionID" class="required" name="ConditionID">
+                    <option value="">-- condition --</option>
+                    <?php $co = $this -> db -> order_by('ConditionID', 'asc') -> get('conditions');
+                        GetCombobox($co, 'ConditionID', 'ConditionName', set_value('ConditionID'));
                     ?>
                 </select>
             </td>
@@ -73,12 +124,36 @@
         <tr>
             <th><label for="Description">Description</label></th>
             <td>
-                <textarea name="Description" id="Description"><?=set_value('Description')?></textarea>
+                <!-- <textarea name="Description" id="Description"><?=set_value('Description')?></textarea> -->
+                <!-- <label for="Description"><h3>Description</h3></label> -->
+                <textarea id="Description" name="Description"><?=set_value('Description')?></textarea>
+                <script>
+                    CKEDITOR.replace('Description', {
+                        height : 100,
+                        toolbar : [{
+                            name : 'document',
+                            items : ['Source', '-']
+                        }, // Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
+                        ['Undo', 'Redo'], // Defines toolbar group without name.
+                        {
+                            name : 'basicstyles',
+                            items : ['Bold', 'Italic', 'Styles', 'Format', 'Font', 'FontSize', 'TextColor', 'BGColor']
+                        }]
+                    }); 
+                </script>
             </td>
         </tr>
         <tr>
-            <th>Picture</th>
-            <td></td>
+            <th><label for="MediaID"><h3>Picture</h3></label></th>
+            <td>
+                <fieldset>
+                <ul class="sortable gambars" style="list-style: none; padding: 0;" id="gambars">
+                    <li>
+                        <a href="#" class="selectpicture">Upload</a>
+                    </li>
+                </ul>
+            </fieldset>
+            </td>
         </tr>
         <tr>
             <th>&nbsp;</th>
@@ -87,12 +162,108 @@
     </table>
     <?=form_close()?>
     </div>
+    
+    <form id="uploader" enctype="multipart/form-data" method="post">
+        <input type="file" style="visibility: hidden" id="filer" name="userfile" class="userfile" />
+    </form>
+
     <div class="clear"></div>
 </div>
 
 
 <script type="text/javascript">
     $(document).ready(function(){
+        function pushuploader(){
+            $('.ui').button();
+            var uploadercontent = '<li>'+
+                                    '<center><a href="#" class="selectpicture">Upload</a>'+
+                                  '</li>';
+            $('#gambars').prepend(uploadercontent);
+        }
+                
+        function upload(idx){
+            $('.userfile').unbind().change(function(){
+                $('#gambars li').eq(idx).html('<img style="width:auto; height:auto;" src="<?=base_url()?>assets/images/load.gif" /> <br /> Uploading...');
+                $(this).parent().ajaxSubmit({
+                    dataType: 'json',
+                    url: '<?=site_url('media/upload')?>',
+                    success : function(data){
+                        var con =   '<img class="fancybox" src="'+data.fullmediapath+'" />'+
+                                    '<a href="#" class="deletephoto deletephoto">x</a>'+
+                                    '<input type="hidden" name="MediaID[]" value="'+data.mediaid+'" />';
+                        $('#gambars li').eq(idx).html(con);
+                        pushuploader();
+                    }
+                });
+            });
+        }
+        
+         $(document).ready(function(){
+            $('#gambars').sortable();
+            $('.deletephoto').live('click',function(){
+                var yakin = confirm('Apa anda yakin?');
+                if(yakin){
+                    $(this).parents('li').remove();
+                    if($('#gambars li').length == 0){
+                        pushuploader();
+                    }
+                }
+                return false;
+            })
+            
+            $('.selectpicture').live('click',function(){
+                var par = $(this).parents('li');
+                var idx = $('#gambars li').index(par);
+                upload(idx);
+                $('#filer').click();
+                return false;
+            });
+            
+            $('.selectmedia').live('click',function(){
+                var a = this;
+                var par = $(this).parents('li');
+                var idx = $('#gambars li').index(par);
+                
+                $('#GeneralDialog').load('<?=site_url('media/multiselect')?>',{},function(){
+                    var dlg = this;
+                    $(dlg).dialog({
+                        modal:true,
+                        width:800,
+                        height:500,
+                        show: 'clip',
+                        title: 'Pilih Gambar',
+                        buttons:{
+                            "OK" : function(){
+                                $('li input:checked',$(dlg)).each(function(){
+                                    var conz =  '<li><img src="<?=base_url()?>assets/images/media/'+$(this).attr('src')+'" />'+
+                                                '<a href="#" class="deletephoto deletephoto">x</a>'+
+                                                '<input type="hidden" name="MediaID[]" value="'+$(this).attr('mediaid')+'" /> </li>';
+                                    $('#gambars').append(conz);
+                                });
+                                $(dlg).dialog('close');
+                            },
+                            "Batal" : function(){
+                                $(dlg).dialog('close');
+                            }
+                        }
+                    });
+                })
+                return false;
+            });
+            
+            $('.removemedia').live('click',function(){
+                var kos = 0;
+                var yakin = confirm('Apa anda yakin?');
+                if(!yakin){
+                    return false;
+                }
+                $('#MediaID').val(kos);
+                $(this).closest('.infomedia').empty().hide();
+                return false;
+            });
+        });
+        
+        
        $('#CountryID').change(function(){
                 var con = this;
                 $('#CityID').empty();

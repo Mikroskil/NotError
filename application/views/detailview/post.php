@@ -1,3 +1,27 @@
+<style>
+    .navv{
+        padding-left: 3px
+    }
+    
+    .navv li{
+        float: left;
+        list-style: none;
+        margin-right: 5px
+    }
+    .navv li a{
+        text-decoration: none;
+        font-size: 14px
+    }        
+    
+</style>
+    
+<ul class="navv">
+    <li><?=anchor(base_url(),'Home')?> >> </li>
+    <li><a href="#"><?=$title?></a></li>
+</ul>
+
+<div class="clear" style="height: 10px"></div>
+
 <h1><?=$model->PostTitle?></h1>
 
 <!-- Add mousewheel plugin (this is optional) -->
@@ -40,9 +64,13 @@
 <div class="post">
     <div class="po">
         <ul id="Gambar">
+            
             <?php if($media->MediaPath){ ?> 
                 <li><img src="<?=$media->MediaFullPath?>" title="" /></li>
+            <?php }else{ ?>
+                <li><img src="<?=base_url() . "assets/images/no-image.png"?>" title="" /></li>
             <?php } ?>
+           
             <?php
                 foreach ($images->result() as $image) {
                     ?>

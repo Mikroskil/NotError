@@ -19,8 +19,8 @@ h1,h2,h3,h4,h5,h6{
 }
 
 select{
-	width: 300px;
-	padding: 5px
+	/*width: 300px;
+	padding: 5px*/
 }
 
 .container{
@@ -77,7 +77,7 @@ input.searchings{
 	border-radius: 0;
 	margin-left: -3px;
 	margin-top: -2px;
-	padding: 7px 18px 9px;
+	padding: 7px 17px 9px;
 	font-size: 14px
 }
 
@@ -195,34 +195,30 @@ li.current a{
 	margin: 10px 0;
 	border-radius: 5px
 }
-.dash_user #tabs-1, .dash_user #tabs-2{
-	padding: 0
+
+.dash_user tbody{
+	color: #000000
+}
+.dash_user tbody a{
+	color: #0066CC
 }
 
-.dash_user .ui-widget-content {
-	color: #000
+.dash_user tbody a:hover{
+	color: #26B3F7
 }
-.dash_user .ui-widget-content a{
-	color: #0066cc;
-}
-.dash_user .ui-widget-content a:hover{
-	color: #0099FF;
-}
-.dash_user .paging_full_numbers .ui-button {
-	color: #FFF !important
-}
+
  
 
 /*end dashboard user*/
 
 .content-login{
-	margin-top: 10px;
+	/*margin-top: 10px;*/
 	position: relative
 }
 
 .log-item {
 	/*background: #DDDDDD;*/
-	margin: 40px 0 0;
+	margin: 20px 0 0;
 	width: 49.7%;
 	min-height: 220px;
 	/*border: 1px solid #CCCCCC;*/
@@ -431,4 +427,61 @@ ul.thumbs li{
 .pagination a span {
     background: none repeat scroll 0 0 transparent;
     text-decoration: underline;
+}
+
+
+
+
+.infomedia{
+	margin-top: 20px;
+	position: relative;
+}
+
+.removemedia{
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+/*end contents*/
+
+#gambars li {
+    border: 1px solid #666666;
+    float: left;
+    height: 112px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 5px;
+    position: relative;
+    width: 112px;
+    position: relative
+}
+#gambars li img {
+    height: 100%;
+    width: 100%;
+}
+#gambars li .deletephoto {
+    background-image: url("../images/fancybox_sprite.png");
+    cursor: pointer;
+    display: block;
+    height: 36px;
+    overflow: hidden;
+    position: absolute;
+    right: -18px;
+    text-indent: -9999em;
+    top: -18px;
+    width: 36px;
+    z-index: 10;
+}
+
+#gambars .selectpicture{
+	background: #a4ffd3;
+	border: 1px solid #999;
+	border-radius: 5px;
+	position: absolute;
+	text-decoration: none;
+	font-size: 14px;
+	top: 40px;
+	left: 25px;
+	padding: 8px 15px;
 }

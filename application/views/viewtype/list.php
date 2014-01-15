@@ -18,14 +18,37 @@
 <link rel="stylesheet" href="<?=base_url()?>assets/fancybox/source/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
 <script type="text/javascript" src="<?=base_url()?>assets/fancybox/source/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
 
+<style>
+    .navv{
+        padding-left: 3px
+    }
+    
+    .navv li{
+        float: left;
+        list-style: none;
+        margin-right: 5px
+    }
+    .navv li a{
+        text-decoration: none;
+        font-size: 14px
+    }        
+    
+</style>
+    
+<ul class="navv">
+    <li><?=anchor(base_url(),'Home')?> >> </li>
+    <li><a href="#">Hasil Pencarian</a></li>
+</ul>
+
+<div class="clear" style="height: 10px"></div>
+
 <?php
     foreach ($model->result() as $post) {
-        #if($post->PostTypeID == PRODUCTNO){
-         #   $media = $this->db->where('MediaID',$post->ProductMediaID)->get('media')->row();
-        #}else{
-            $media = $this->db->where('MediaID',$post->MediaID)->get('media')->row();
-        #}
+        
+        if($post -> PostExpired > date('Y-m-d') || empty($post -> PostExpired)){
+        $media = $this->db->where('MediaID',$post->MediaID)->get('media')->row();
 ?>
+
 
 <div class="viewtypelist">
 <?php
@@ -66,10 +89,19 @@
     <!-- <div class="clear"></div> -->
     <!-- </div> -->
     
+    <?php
+        $cond = $this -> db -> where('ConditionID',$post -> ConditionID) -> get('conditions') -> row();
+        $prov = $this -> db -> where('ProvinceID',$post -> ProvinceID) -> get('provinces') -> row();
+        $city = $this -> db -> where('CityID',$post -> CityID) -> get('cities') -> row();
+    ?>
     
-    <p class="content">
+    <p><?=$cond -> ConditionName?></p>
+    <h4><?='Rp. '.$post -> Price?></h4>
+    <p><?=$prov -> ProvinceName.', '.$city -> CityName?></p>
+    
+    <!-- <p class="content">
         <?=word_limiter(strip_tags(strip_shortcode(parse_form($post->Description))),30)?>
-    </p>
+    </p> -->
 
     <div class="detail btn-container">
         <?=anchor(site_url('post/view/'.$post->PostSlug),"Detail",array('class'=>'ui'))?>
@@ -79,7 +111,9 @@
 </div>
 <br /> <hr />
 
-<?php } ?>
+<?php } 
+}
+?>
 <br />
 <?php if(!isset($nopagination)){ ?>
     <?php if($exist){ ?>

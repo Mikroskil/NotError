@@ -132,13 +132,13 @@
                             <li><?=anchor('widget', 'All Widgets')?></li>
                         </ul>
                     </li> -->
-                    <li>
+                    <!-- <li>
                         <?=anchor('menu', 'Menus')?>
                         <ul>
                             <li><?=anchor('menu/add', 'Add New Menu')?></li>
                             <li><?=anchor('menu', 'All Menus')?></li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li>
                         <?=anchor('footer', 'Footer Column')?>
                         <ul>
