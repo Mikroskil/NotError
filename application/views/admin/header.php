@@ -20,6 +20,8 @@
     <script type="text/javascript" src="<?=base_url()?>assets/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="<?=base_url()?>assets/ckeditor/adapters/jquery.js"></script>
     
+    <script type="text/javascript" src="<?=base_url()?>assets/js/jquery.cookie.js"></script>
+    
     
     
     
@@ -42,6 +44,12 @@
         });
         
     </script>
+    
+    <style type="text/css">
+        li.current{
+            background: #CCCCCC;
+        }
+    </style>
     
     
 </head>

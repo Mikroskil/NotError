@@ -16,6 +16,28 @@
 	$(document).ready(function(){
 	    $('#validate').validate();
 	    
+	    $('.sf-menu a[href="<?=current_url()?>"]').parent().addClass('current');
+	    
+	    $('#accordion').accordion({
+                heightStyle:"content",
+                collapsible:true,
+                clearStyle:true,
+                create: function(event, ui) {
+                //get index in cookie on accordion create event
+                    if($.cookie('saved_index') != null){
+                        act =  parseInt($.cookie('saved_index'));
+                    }
+                },
+                activate: function(event, ui) {
+                      //set cookie for current index on change event
+                      $.cookie('saved_index', null);
+                      var idx = $('.ui-accordion-header').index(ui.newHeader);
+                      //alert(idx);
+                      $.cookie('saved_index', idx);
+                   },
+                active:parseInt($.cookie('saved_index'))
+            });
+	    
 	    $( '.datepicker' ).datepicker({
             showOn: "button",
             buttonImage: "<?=base_url().'assets/images/calendar.gif' ?> ",
@@ -51,6 +73,7 @@
 	      } 
 	   });
 	   
+	  
 	   
 	});
 	
