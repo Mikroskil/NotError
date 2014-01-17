@@ -1,8 +1,10 @@
 body{
 
 	background: url("images/slider-bg.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
-
-	
+	background: #003147;
+}
+.container{
+	background: rgba(0,0,0,0.8);
 }
 .header{
 	background: url("images/main-bg.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
@@ -10,8 +12,20 @@ body{
 .nav{
 	background: #b70000;	
 }
+.navv li{
+	color:#FFFF00;
+}
+.navv a{
+	color:#FFFF00;
+}
 .container{
-	padding: 0
+	padding: 0;
+}
+.titles{
+	color:#FFFFFF;
+}
+.main_postcontent{
+	background: rgba(0,0,0,0);
 }
 
 .itemss{
@@ -42,7 +56,6 @@ font-weight: bold
 }
 .in ul li a:hover{
 	color: #0063DC;
-	
 }
 
 
@@ -75,17 +88,24 @@ background: url("images/main-bg.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 
 .id-profile{
-	background: 
+	background:#FBF9EE;
 	padding:3px;
 		
 }
 .id-profile h4{
 	color:#0033CC;
 }
+.post-content{
+	color:#FFFF00;
+}
+.post-content h3{
+	color:#FFFF00;
+}
 .post-r{
 	background: #FFFFAA;
 	padding: 5px;
 }
+ 
 .post-r h2{
 	color: #000000;
 	background: #FFB73D;
@@ -93,6 +113,24 @@ background: url("images/main-bg.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
 .post-r ul{
 	list-style: none;
 }
-.judul h4{
-	margin-right
+.harga{
+	color: #FFFFFF;
+	float: right;
+	font-size: 16px;
+	font-weight: bold;
+	margin-top: 5px;
+	text-align: right;
+	width: 200px;	
+	margin-right: 12px;
+}
+.waktu{
+	color:#FFFF00;
+}
+.judul a{
+	color:#E2E2FF;
+}
+.condisi{
+	color:#FFFF00;
+}.daerah{
+	color:#FFFF00;
 }

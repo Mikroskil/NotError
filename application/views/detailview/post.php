@@ -1,16 +1,18 @@
 <style>
     .navv{
-        padding-left: 3px
+        padding-left: 3px;
     }
     
     .navv li{
         float: left;
         list-style: none;
-        margin-right: 5px
+        margin-right: 5px;
     }
+    
     .navv li a{
         text-decoration: none;
-        font-size: 14px
+        font-size: 14px;
+        color: #FFFF00;
     }        
     
 </style>
@@ -22,7 +24,7 @@
 
 <div class="clear" style="height: 10px"></div>
 
-<h1><?=$model->PostTitle?></h1>
+<h1 class="titles"><?=$model->PostTitle?></h1>
 
 <!-- Add mousewheel plugin (this is optional) -->
 <script type="text/javascript" src="<?=base_url()?>assets/fancybox/lib/jquery.mousewheel-3.0.6.pack.js"></script>

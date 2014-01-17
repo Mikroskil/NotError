@@ -20,7 +20,7 @@
 
 <style>
     .navv{
-        padding-left: 3px
+        padding-left: 3px;
     }
     
     .navv li{
@@ -98,9 +98,9 @@
         $city = $this -> db -> where('CityID',$post -> CityID) -> get('cities') -> row();
     ?>
     
-    <p><?=$cond -> ConditionName?></p>
-    <h4><?='Rp. '.$post -> Price?></h4>
-    <p><?=$prov -> ProvinceName.', '.$city -> CityName?></p>
+    <p class="condisi"><?=$cond -> ConditionName?></p>
+    <h4 class="harga"><?='Rp. '.$post -> Price?></h4>
+    <p class="daerah"><?=$prov -> ProvinceName.', '.$city -> CityName?></p>
     
     <!-- <p class="content">
         <?=word_limiter(strip_tags(strip_shortcode(parse_form($post->Description))),30)?>
