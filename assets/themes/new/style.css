@@ -225,14 +225,23 @@ color: #FBF9EE;
 color:#26B3F7;
 }
 
-
-
-
-/*footer*/
-.footer{
-	
+.id-profile{
+	border-bottom: groove 2px;
+	border-bottom-color: #26B3F7;
 }
 
+.post-content{
+	padding-top:40px;
+}
+
+/*footer*/
+hr{
+	margin: 0 0 0px;
+}
+
+.footer {
+background-color: #212121;
+}
 .footer .copy{
 	
 }
