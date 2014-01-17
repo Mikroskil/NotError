@@ -1,5 +1,7 @@
 body{
-	background: -moz-linear-gradient(top center , #000000, #000000, #006464) no-repeat scroll 0 0 #006464
+	background: -moz-linear-gradient(top center , #000000, #000000, #006464) no-repeat scroll 0 0 #006464;
+	background: url(image/bg.jpg);
+	color:#FBF9EE;
 }
 
 .container{
@@ -7,7 +9,7 @@ body{
 	margin-top: 10px;
 	padding: 5px ;
 	border-radius: 2px;
-	/*background: #333333*/
+	background: rgba(0,0,0,0.8);
 	/*box-shadow: 0px 1px 2px rgba(0,0,0,0.2)*/
 	/*background: -moz-linear-gradient(top center , #000000, #000000, #006464) repeat scroll 0 0 rgba(0, 0, 0, 0);*/
 }
@@ -19,27 +21,25 @@ body{
 }
 
 
-
-
 /*header*/
 .header{
-	background: rgba(0,100,100,1);
+	background: rgba(35,35,35,1);
 	position: relative;
 	height: 100px;
-	padding: 2px
+	padding: 2px;
 }
 
 .logo{
 	height: 100px;
-	background: -moz-linear-gradient(left, #000000, #000000, rgba(0,100,100,1));	
-	background: -webkit-linear-gradient(left, #000000, #000000, rgba(0,100,100,1));	
 }
 
 
 input.searchings{
 	/*width: 442px;*/
 	width: 50%;
-	border-radius: 3px 0px 0px 3px
+	border-radius: 3px 0px 0px 3px;
+	background-color: #212121;
+	color:#FBF9EE;
 }
 
 .nav .cari{
@@ -51,6 +51,8 @@ input.searchings{
 	padding-right: 0px;
 	font-size: 14px;
 	border-radius: 0px 3px 3px 0px;
+	background-color: #212121;
+	color:#FBF9EE;
 }
 
 .nav select{
@@ -58,7 +60,9 @@ input.searchings{
 	width: 	20%;
 	padding: 7px 8px 9px;
 	border: 1px solid #aaa;
-	margin-left: -4px
+	margin-left: -4px;
+	background-color: #212121;
+	color:#FBF9EE;
 }
 
 .searching .s{
@@ -69,9 +73,10 @@ input.searchings{
 
 
 .nav{
-	background: rgba(0,100,100,1);
+	/*background: rgba(117,249,242,0.9);*/
 	box-shadow: 0px 1px 2px rgba(0,0,0,0.2);
-	padding: 0 0 3px 3px;
+	padding-bottom: 20px;
+	border-radius: 0px 0px 10px 10px;
 }
 
 .nav select{
@@ -133,6 +138,7 @@ input.searchings{
 .nav-dashboard ul li a{
 	width: 100%
 }
+
 li.current a{
 	background: #0D3349
 }
@@ -199,7 +205,25 @@ li.current a{
 }
 
 
+/*Screen*/
+.navv li a {
+text-decoration: none;
+color:#FBF9EE;
+}
 
+h1, h2, h3, h4, h5, h6 {
+font-weight: normal;
+color: #FCFCFC;
+}
+
+a {
+text-decoration: none;
+color: #FBF9EE;
+}
+
+.navv li a {
+color:#26B3F7;
+}
 
 
 
