@@ -72,7 +72,7 @@
             <?php
                 $d = 0;
                 foreach ($all->result() as $d) {
-                    $type = $this -> db -> where('POstTypeID',$d->PostTypeID) -> get('posttypes') -> row();
+                    $type = $this -> db -> where('PostTypeID',$d->PostTypeID) -> get('posttypes') -> row();
                     $stat = $this -> db -> where('StatusID',$d->StatusID) -> get('status') -> row();
                     $cat = $this -> db -> where('CategoryID',$d->CategoryID) -> get('categories') -> row();
                     $med = $this -> db -> where('MediaID',$d->MediaID) -> get('media') -> row();
