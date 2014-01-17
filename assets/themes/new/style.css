@@ -17,6 +17,11 @@ body{
 .dash_user table tbody tr td, .dash_user table tbody tr th{
 	color: white;
 }
+
+.dash_user .odd, .dash_user .even {
+	background: none;
+}
+
 .linker {
 	top: 69px;
 	right: 5px;	
