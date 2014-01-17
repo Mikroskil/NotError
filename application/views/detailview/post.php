@@ -94,7 +94,7 @@
         </div>
         
         
-        <div>
+        <div class="id-profile">
             <h2 class="name"><?=$name -> Name?></h2>
             <h4><?=$name -> Telp?></h4>
             <h3><?=$name -> Email?></h3><br /><br />

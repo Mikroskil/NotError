@@ -73,3 +73,26 @@ background: url("images/main-bg.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
 	color: #EB9999;
 	font-size: 11px;
 }
+
+.id-profile{
+	background: 
+	padding:3px;
+		
+}
+.id-profile h4{
+	color:#0033CC;
+}
+.post-r{
+	background: #FFFFAA;
+	padding: 5px;
+}
+.post-r h2{
+	color: #000000;
+	background: #FFB73D;
+}
+.post-r ul{
+	list-style: none;
+}
+.judul h4{
+	margin-right
+}
