@@ -36,7 +36,7 @@ class User extends CI_Controller {
                 
                 if($this -> input -> post('redirect') == ""){
                     if($this -> session -> userdata(USERLOGIN) != ""){
-                        redirect('user/dashboard');
+                        redirect(site_url('user/dashboard/'.getUserLogin('UserName')));
                     }
                 }else{
                     if($this -> session -> userdata(USERLOGIN) != ""){
