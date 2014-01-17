@@ -14,7 +14,9 @@ body{
 	/*background: -moz-linear-gradient(top center , #000000, #000000, #006464) repeat scroll 0 0 rgba(0, 0, 0, 0);*/
 }
 
-
+.dash_user table tbody tr td, .dash_user table tbody tr th{
+	color: white;
+}
 .linker {
 	top: 69px;
 	right: 5px;	
