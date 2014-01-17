@@ -63,10 +63,6 @@ class User extends CI_Controller {
     
     
     function dashboard($user){
-        #cekUserLogin();
-        #$data['title']  = 'Dashboard';
-        #$this -> load -> view('user/dashboard', $data);
-        
          cekUserLogin();
         $this -> load -> model('mpost');
         $data['result'] = $result = $this -> muser -> getrow($user);
