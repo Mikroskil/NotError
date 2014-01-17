@@ -227,16 +227,27 @@ color:#26B3F7;
 
 .id-profile{
 	border-bottom: groove 2px;
-	border-bottom-color: #26B3F7;
+	border-bottom-color: #63CE4E;
 }
 
 .post-content{
 	padding-top:40px;
 }
 
+.outer #Gambar{
+	margin-top:20px;
+	border-radius: 10px;
+	border:ridge #666666;	
+}
+
+.name{
+	font-style: italic;
+}
+
 /*footer*/
 hr{
 	margin: 0 0 0px;
+	background: #63CE4E;
 }
 
 .footer {
