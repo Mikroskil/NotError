@@ -48,11 +48,16 @@
 		        $d = 0;
 		        foreach ($all->result() as $d) {
 		        	$stat = $this -> db -> where('StatusID',$d->StatusID) -> get('status') -> row();
+                    $med = $this -> db -> where('MediaID',$d->MediaID) -> get('media') -> row();
 		        	if($d->StatusID==5){
 		    ?>
 		        <tr>
 		            <td><input type="checkbox" name="cek[]" class="cek" value="<?=$d->PostID?>" /></td>
-		            <td><?=$d->MediaID?></td>
+		            <td>
+		            <center>
+                          <?=anchor(site_url('post/view/'.$d->PostSlug),'<img width="72" height="72" src="'.$med -> MediaFullPath.'" /><br />'.$d->PostTitle)?>
+                        </center>
+                        </td>
 		            <td><?=anchor(site_url('post/edit/'.$d->PostID),$d->PostTitle)?></td>
 		            <td><?=date('d-M-Y H:i:s',strtotime($d->PostDate))?></td>
 		            <td><?=$d->CreatedBy?$d->CreatedBy:$d->UpdateBy?></td>

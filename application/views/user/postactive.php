@@ -78,7 +78,8 @@
 		                <?=date('H:i:s',strtotime($d->PostDate))?>
 	                </td>
 		            
-		            <td><?=date('d-M-Y',strtotime($d->PostExpired))?></td>
+		            <!-- <td><?=date('d-M-Y',strtotime($d->PostExpired))?></td> -->
+		            <td><?=$d->PostExpired? $d->PostExpired : 'Unlimited' ?></td>
 		            <td><?=$stat->StatusName?></td>
 		        </tr>    
 		    <?php }

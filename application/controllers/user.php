@@ -62,12 +62,19 @@ class User extends CI_Controller {
     
     
     
-    function dashboard(){
-        cekUserLogin();
-        $data['title']  = 'Dashboard';
+    function dashboard($user){
+        #cekUserLogin();
+        #$data['title']  = 'Dashboard';
+        #$this -> load -> view('user/dashboard', $data);
         
+         cekUserLogin();
+        $this -> load -> model('mpost');
+        $data['result'] = $result = $this -> muser -> getrow($user);
+        $data['all'] = $all = $this -> mpost -> getall(array('CreatedBy'=>$user));
+        $data['title'] = $result -> Name;
         
-        $this -> load -> view('user/dashboard', $data);
+        $this -> load -> view('user/profil',$data);
+        
     }
 	
 	function editprofil($user){
@@ -329,6 +336,16 @@ class User extends CI_Controller {
         
         redirect(site_url('user').'?deleted=1');
         
+    }
+    
+    function profil($user){
+        cekUserLogin();
+        $this -> load -> model('mpost');
+        $data['result'] = $result = $this -> muser -> getrow($user);
+        $data['all'] = $all = $this -> mpost -> getall(array('CreatedBy'=>$user));
+        $data['title'] = $result -> Name;
+        
+        $this -> load -> view('user/profil',$data);
     }
  
  
