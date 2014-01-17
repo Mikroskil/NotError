@@ -134,3 +134,24 @@ background: url("images/main-bg.gif") repeat scroll 0 0 rgba(0, 0, 0, 0);
 }.daerah{
 	color:#FFFF00;
 }
+.login_user h2{
+	color: #FFFFFF;
+}
+.log-item {
+	color: #FFFFFF; 
+}
+.log-item h2 {
+	color: #FFFFFF;
+}
+
+.dash_user table tr th {
+	color:#FFFFFF;
+}
+.dash_user table tr th label h3, .dash_user table tr td label{
+	color:#FFFFFF;
+}
+.dash_user h2{
+	color: #FFFFFF;
+}
+
+
