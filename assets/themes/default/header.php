@@ -65,7 +65,7 @@
         
         <div class="linker">
             <?php if($this->session->userdata(USERLOGIN)){
-               echo 'Hai,<strong>'.getUserLogin('Name').'</strong> '. anchor('user/dashboard','Dasboard',array('class'=>'ui')) .' | '. anchor('user/logout','Logout',array('class'=>'ui')); 
+               echo 'Hai,<strong>'.getUserLogin('Name').'</strong> '. anchor('user/dashboard/'.getUserLogin('UserName'),'Dasboard',array('class'=>'ui')) .' | '. anchor('user/logout','Logout',array('class'=>'ui')); 
             }else{
                echo anchor('user/login','Login',array('class'=>'ui'))?> | <?=anchor('user/register','Register',array('class'=>'ui')); 
             }?>
